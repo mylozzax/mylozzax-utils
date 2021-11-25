@@ -1,10 +1,7 @@
 import { html, css, LitElement } from 'lit';
-import SendFundsNavigationController from "../Controllers/SendFundsNavigationController";
-import AddressResolver from "@mymonero/mymonero-address-resolver";
-console.log(AddressResolver);
-console.log("SendView imported");
+import SendFundsController from "../Controllers/SendFundsController";
 
-export default class SendFundsView extends SendFundsNavigationController (LitElement) {
+export default class SendFundsView extends SendFundsController (LitElement) {
     static get styles() {
         return css`
             :host {
@@ -162,16 +159,18 @@ export default class SendFundsView extends SendFundsNavigationController (LitEle
         this.contacts = this.context.contactsListController.records;
         this.renderStyles();
         this.addEventListener('mym-contact-picker-update', this.updateSelectedContact);
+        
         //this.addEventListener('input', this.handleFilepickerChange);
         //this.addEventListener('change', this.handleFilepickerChange);
         // TODO: disable fiat options if fiat api status returns an error
     }
-
+    
     disconnectedCallback() {
         super.disconnectedCallback();
         this.removeEventListener('mym-contact-picker-update', this.updateSelectedContact);
     }
     
+
     constructor() {
         super();
         this.clickHandler = this.clickHandler;

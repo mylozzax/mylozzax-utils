@@ -20,7 +20,7 @@ class OpenAlias {
   /**
    * Fetches all open alias addresses assigned to the domain.
    * @param {string} oaAddress - open alias address.
-   * @returns {object} List of address objects.
+   * @returns {array} List of address objects.
    */
   async lookup (oaAddress) {
     const response = await this.httpClient.get('/dns-query', {

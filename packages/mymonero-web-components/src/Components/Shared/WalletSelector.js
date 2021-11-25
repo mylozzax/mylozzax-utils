@@ -46,7 +46,7 @@ export class WalletSelector extends LitElement {
         #wallet-selector {
             position: relative;
             padding: 0px;
-            margin: 5px;
+            margin: 0px;
         }
         .WalletSelectView .selectionDisplayCellView, .WalletSelectView .options_containerView {
             border-radius: 5px;

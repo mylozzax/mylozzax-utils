@@ -134,6 +134,12 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 top: -29px;
                 position: relative;
             }
+            mym-message-dialog {
+                margin: 25px;
+                padding: 0px;
+                display: inline-block;
+                width: 100%;
+            }
         `
     }
 
@@ -153,12 +159,18 @@ export default class SendFundsView extends SendFundsController (LitElement) {
         console.log(event);
     }
 
+    closeMessageDialog() {
+        console.log("Hi from CMD");
+        this.showMessageDialog = false;
+    }
+
     connectedCallback() {
         super.connectedCallback();
         this.wallets = this.context.walletsListController.records;
         this.contacts = this.context.contactsListController.records;
         this.renderStyles();
         this.addEventListener('mym-contact-picker-update', this.updateSelectedContact);
+        this.addEventListener('mym-message-dialog-close', this.closeMessageDialog);
         
         //this.addEventListener('input', this.handleFilepickerChange);
         //this.addEventListener('change', this.handleFilepickerChange);
@@ -175,8 +187,10 @@ export default class SendFundsView extends SendFundsController (LitElement) {
         super();
         this.clickHandler = this.clickHandler;
         this.context = {};
-        this.displayPaymentIDInput = false;
-        this.displayResolvingIndicator = false;
+        this.showPaymentIDInput = false;
+        this.showResolvingIndicator = false;
+        this.showMessageDialog = true;
+        this.messageText = "Woot";
         this.paymentID = "";
     }
     
@@ -186,8 +200,10 @@ export default class SendFundsView extends SendFundsController (LitElement) {
             contacts: { 
                 type: Array
             },
-            displayResolvingIndicator: { type: Boolean },
-            displayPaymentIDInput: { type: Boolean },
+            showResolvingIndicator: { type: Boolean },
+            showPaymentIDInput: { type: Boolean },
+            showMessageDialog: { type: Boolean },
+            messageText: { type: String },
             paymentID: { type: String }
         }
     }
@@ -224,16 +240,11 @@ export default class SendFundsView extends SendFundsController (LitElement) {
     }
 
     render() {
-        console.log(this);
-        console.log(this.context);
-        console.log(this.contacts);
-        console.log(typeof(this.contacts));
         return html`
         <div id="sendfunds-page">
             <div>
-                <div class="ClassNameForScrollingAncestorOfScrollToAbleElement" style="user-select: none; position: relative; box-sizing: border-box; width: 100%; height: 100%; padding: 41px 0px 0px; overflow-y: auto; background-color: rgb(39, 37, 39); color: rgb(192, 192, 192); word-break: break-all;"><div class="inlineMessageDialogLayer wantsCloseButton" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;display: none;width: calc(100% - 48px);margin-left: 24px;">
-                    <span>
-                    </span><a href="#" class="close-btn"></a>
+                <div class="ClassNameForScrollingAncestorOfScrollToAbleElement" style="user-select: none; position: relative; box-sizing: border-box; width: 100%; height: 100%; padding: 41px 0px 0px; overflow-y: auto; background-color: rgb(39, 37, 39); color: rgb(192, 192, 192); word-break: break-all;">
+                    <mym-message-dialog .message="${this.messageText}" .showMessage="${this.showMessageDialog}"></mym-message-dialog>
                 </div>
                 <div>
                     <div class="form_field">
@@ -289,7 +300,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                         <mym-tooltip allowHTML="true" tooltipContent="Drag &amp; drop QR codes<br>to auto-fill.<br><br>Please double-check<br>your recipient info as<br>Monero transfers are<br>not yet&nbsp;reversible.">?</mym-tooltip>
                     </span>
                     <mym-contact-picker .contacts="${this.contacts}"></mym-contact-picker>    
-                    <activity-indicator .loadingText="Resolving..." ?hidden=${!this.displayResolvingIndicator}></activity-indicator>
+                    <activity-indicator .loadingText="Resolving..." ?hidden=${!this.showResolvingIndicator}></activity-indicator>
                 </div>
                 </div>
                 <div style="display: none;"><span class="field_title" style="user-select: none; display: block; margin: 12px 0px 8px 8px; text-align: left; color: rgb(248, 247, 248); font-family: Native-Light, input, menlo, monospace; -webkit-font-smoothing: subpixel-antialiased; font-size: 10px; letter-spacing: 0.5px; font-weight: 300;">MONERO ADDRESS
@@ -302,14 +313,14 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 </div>
                 </div>
                 </div>
-                <div class="paymentIDWrapper form_field" @click=${this.togglePaymentID} ?hidden=${this.displayPaymentIDInput}>
+                <div class="paymentIDWrapper form_field" @click=${this.togglePaymentID} ?hidden=${this.showPaymentIDInput}>
                     <a class="clickableLinkButton">+ ADD PAYMENT ID</a>
                 </div>
-                <div class="paymentIDWrapper form_field" @click=${this.togglePaymentID} ?hidden=${!this.displayPaymentIDInput}>
+                <div class="paymentIDWrapper form_field" @click=${this.togglePaymentID} ?hidden=${!this.showPaymentIDInput}>
                     <a class="clickableLinkButton">+ HIDE PAYMENT ID FIELD</a>
                 </div>
                 <div class="form_field">                        
-                    <div class="" ?hidden=${!this.displayPaymentIDInput}>
+                    <div class="" ?hidden=${!this.showPaymentIDInput}>
                         <div style="margin: 0px 0px 8px;">
                             <span class="field_title" style="user-select: none; display: inline; margin: 0px 0px 0px 8px; text-align: left; color: rgb(248, 247, 248); font-family: Native-Light, input, menlo, monospace; -webkit-font-smoothing: subpixel-antialiased; font-size: 10px; letter-spacing: 0.5px; font-weight: 300; width: auto; float: none;">ENTER PAYMENT ID OR </span>
                             <a class="clickableLinkButton" @click=${this.generatePaymentID} style="margin: 0px;">GENERATE ONE</a>

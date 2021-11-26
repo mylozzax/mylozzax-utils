@@ -4,11 +4,15 @@
 //require("@mymonero/mymonero-web-components");
 
 /* Require various view elements */
+
 require("./Exchange/Elements/ChangenowBuyWithFiatView");
 require("./Exchange/Elements/ChangenowFixedRateView")
 require("./Exchange/Elements/ChangenowFloatingRateView");
 require("./SendFunds/Elements/SendFundsView");
 /* Import exchange landing page class */
+let AuthenticationLandingPage = require("./Authentication/Elements/AuthenticationView");
+let AuthenticationController = require("./Authentication/Controller/AuthenticationController");
+
 let ExchangeLandingPage = require("./Exchange/Elements/ExchangeLandingPage");
 let ExchangeNavigationController = require("./Exchange/Controllers/ExchangeNavigationController");
 
@@ -17,8 +21,9 @@ let SendFundsNavigationController = require("./Exchange/Controllers/SendFundsNav
 
 /* Export page templates */
 module.exports = {
+    AuthenticationView,
     ExchangeLandingPage,
     ExchangeNavigationController,
     SendFundsView,
-    SendFundsNavigationController
+    SendFundsController
 }

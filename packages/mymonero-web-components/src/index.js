@@ -1,6 +1,7 @@
 /* Require reusable components */
 require("../lib/Components/Shared/ActivityIndicator");
 require("../lib/Components/Shared/ContactPicker");
+require("../lib/Components/Shared/MessageDialog");
 require("../lib/Components/Shared/ProviderCard");
 require("../lib/Components/Shared/SearchableSelect")
 require("../lib/Components/Shared/WalletSelector");

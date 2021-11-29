@@ -6,8 +6,8 @@ require("./src/Exchange/Elements/ChangenowFixedRateView")
 require("./src/Exchange/Elements/ChangenowFloatingRateView");
 require("./src/SendFunds/Elements/SendFundsView");
 
-import AuthenticationLandingPage from "./src/Authentication/Elements/AuthenticationView");
-import AuthenticationController from "./src/Authentication/Controller/AuthenticationController");
+import AuthenticationView from "./src/Authentication/Elements/AuthenticationView";
+import AuthenticationController from "./src/Authentication/Controllers/AuthenticationController";
 
  /* Import exchange landing page class */
 import ExchangeLandingPage from "./src/Exchange/Elements/ExchangeLandingPage";
@@ -18,7 +18,7 @@ import SendFundsController from "./src/SendFunds/Controllers/SendFundsController
  /* Export page templates */
  export default {
     AuthenticationView,
-    AuthenticationLandingPage,
+    AuthenticationController,
     ExchangeLandingPage,
     ExchangeNavigationController,
     SendFundsView,

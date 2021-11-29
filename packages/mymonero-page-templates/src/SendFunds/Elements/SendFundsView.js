@@ -358,6 +358,9 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 <div style="position: absolute; z-index: 999999; inset: 0px; background-color: rgb(39, 37, 39); display: none;"><div style="position: absolute; background-color: rgb(29, 27, 29); margin: 56px 15px 15px; width: calc(100% - 32px); border: 1px dashed rgb(73, 71, 73); border-radius: 6px; height: calc(100% - 73px);"><div style="width: 100%; height: 48px; background-size: 48px 48px; background-image: url('../../assets/img/qrDropzoneIcon@3x.png'); background-position: center center; background-repeat: no-repeat; margin-top: 108px;"></div><div style="width: 100%; height: auto; text-align: center; margin-top: 24px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(158, 156, 158); font-weight: 300; -webkit-font-smoothing: subpixel-antialiased;">Drag and drop a<br>Monero Request Code </div></div></div></div></div>
             </div>
         </div>
+        <div>
+            <mym-authentication-view .context=${this.context}></mym-authentication-view>
+        </div>
         `;
     }
     useCamera() {

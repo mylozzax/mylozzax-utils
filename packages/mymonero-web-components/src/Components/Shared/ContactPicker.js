@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit';
+import {classMap} from 'lit/directives/class-map.js';
 
 export class MyMoneroContactPicker extends LitElement {
   static get styles() {
@@ -7,7 +8,9 @@ export class MyMoneroContactPicker extends LitElement {
         margin: 0px;
         padding: 0px;
     }
-    
+
+    [hidden] { display: none !important; }
+
     /* Dropdown Button */
     .dropbtn {
       background-color: #04AA6D;
@@ -40,7 +43,6 @@ export class MyMoneroContactPicker extends LitElement {
     
     /* The container <div> - needed to position the dropdown content */
     .dropdown {
-        background-color: rgb(29, 27, 29);
         position: relative;
         display: inline-block;
         color: #000000;

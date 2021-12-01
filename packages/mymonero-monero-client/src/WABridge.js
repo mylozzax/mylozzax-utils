@@ -44,14 +44,14 @@ class WABridge {
     if (typeof options.randomOutsCb !== 'function') {
       throw Error('Invalid randomsOutCB not a function')
     }
-    if (!options.destinations.isArray()) {
+    if (!Array.isArray(options.destinations)) {
       throw Error('Invalid destinations')
     }
-    for (var destination in options.destinations) {
-      if (!destination.hasOwnProperty(to_address) || !destination.hasOwnProperty(send_amount)) {
-        throw Error('Invalid destinations')
+    options.destinations.forEach(function (destination) {
+      if (!destination.hasOwnProperty('to_address') || !destination.hasOwnProperty('send_amount')) {
+        throw Error('Invalid destinations missing values')
       }
-    }
+    })
     if (options.shouldSweep) {
       if (options.destinations.length !== 1) {
         throw Error('Invalid number of destinations must be 1')

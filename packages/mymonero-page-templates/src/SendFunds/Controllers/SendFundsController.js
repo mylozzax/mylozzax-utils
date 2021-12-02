@@ -11,15 +11,12 @@ const SendFundsController = (superClass) => class extends superClass {
         console.log(this.addressResolver);
     }
 
-    async resolveAddress(event) {
-        console.log("Here we are");
-        console.log(event);
-        let remoteEvent = event.detail.event;
-        console.log(event.detail.event.path[0].value)
-        console.log(remoteEvent.path[0].value)
-        var eventPath = remoteEvent.path || (remoteEvent.composedPath && remoteEvent.composedPath());
-        let textToResolve = eventPath[0].value;
-        let AddressResolver = await this.addressResolver.resolveAddressFromString(textToResolve);
+    async resolveAddress(addressString) {
+        let addressResolverResult = await this.addressResolver.resolveAddressFromString(addressString);
+        if (addressResolverResult == null) {
+            return false;
+        }
+        return addressResolverResult;
     }
 
     connectedCallback() {

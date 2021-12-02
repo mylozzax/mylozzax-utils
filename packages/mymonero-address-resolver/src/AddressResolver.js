@@ -5,7 +5,7 @@ import OpenAlias from "../../mymonero-openalias";
 console.log(OpenAlias);
 class AddressResolver {
     constructor(options = {}) {
-        console.log("AddressResolver inited")
+        this.currency = options.currency || "XMR"
         this.yatMoneroLookup = new YatMoneroLookup.YatMoneroLookup();
         this.openAlias = new OpenAlias();
     }
@@ -87,9 +87,25 @@ class AddressResolver {
         // openAlias -- this would be a URL of some manner, so a brief check for a period would suffice
         if (string.indexOf('.') != -1) {
             // Address has a period, attempt to look up data
+            var currencyToFind = this.currency;
             try {
                 let lookupResult = await this.openAlias.lookup(string);
-                console.log(lookupResult);
+                let objToReturn = null;
+                
+                if (lookupResult instanceof Array && lookupResult.length > 0) {
+                    for (let obj of lookupResult) {
+                        if (obj.currency.toUpperCase() == currencyToFind.toUpperCase()) {
+                            objToReturn = obj;
+                            return obj;
+                        }
+                    }
+                }
+                
+                if (objToReturn !== null) {
+                    return objToReturn;
+                }
+
+                return "no records found";
             } catch (error) {
                 switch (error.message) {
                     case "no response":
@@ -106,6 +122,8 @@ class AddressResolver {
         }
         // email...?
     }
+
+    check
 
     resolveAddressFromQRImageBlob() {
 

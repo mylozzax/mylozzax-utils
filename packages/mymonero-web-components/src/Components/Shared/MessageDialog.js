@@ -5,20 +5,22 @@ import { html, css, LitElement } from 'lit';
 export class MessageDialog extends LitElement {
   static get styles() {
     return css`
+        :host {
+            margin: 0px auto 0px 20px;
+            padding: 0px;
+            display: inline-block;
+            width: calc(100% - 40px);
+        }
+
         .message-dialog {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             width: calc(100% - 48px);
-            margin-left: 24px;
             background: rgba(245, 230, 125, 0.05);
             border: 0.5px solid rgba(245, 230, 125, 0.30);
             border-radius: 3px;
             min-height: 29px;
             box-sizing: border-box;
-            margin-left: 0;
-            margin-right: 0;
             padding: 6px 8px 8px 8px;
-            margin-top: 15px;
-            margin-bottom: 10px;
             height: auto;
             width: 100%;
             color: #F5E67E;

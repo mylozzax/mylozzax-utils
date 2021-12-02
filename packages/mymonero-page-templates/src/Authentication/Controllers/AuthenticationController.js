@@ -36,14 +36,32 @@ const AuthenticationController = (superClass) => class extends superClass {
         })
     }
 
+    connectedCallback() {
+        super.connectedCallback();
+        this.renderStyles();
+    }
+    
+    disconnectedCallback() {
+        this.removeStyles();
+        super.disconnectedCallback();
+    }
+
+    removeStyles() {
+        let styleElement = document.getElementById("authentication-view-styles");
+        if (styleElement !== null) {
+            styleElement.remove();
+        }
+    }
+
     renderStyles() {
-        let styleElement = document.getElementById("lit-styles");
+        let styleElement = document.getElementById("authentication-view-styles");
         if (styleElement == null) {
             let styles = document.createElement("style");
             styles.innerHTML = `
 
                 #leftBarButtonHolderView, #rightBarButtonHolderView {
                     z-index: 10;
+                    background: red;
                 }
                 #navigation-bar-view-sub-wrapper {
                     display: none;
@@ -71,8 +89,21 @@ const AuthenticationController = (superClass) => class extends superClass {
                 .exchange-page-panel .exchange-page-content-container {
                     margin: 20px 0px !important;
                 }
+                .ClassNameForScrollingAncestorOfScrollToAbleElement {
+                    padding: 0px !important;
+                }
+                #NavigationBarView{
+                    z-index: -1 !important;
+                }
+                // TODO: move to styles.css?
+                .stack-view-stage-view div {
+                    height: 100%;
+                }
+                #stack-view-stage-view, #stack-view-stage-view div, #stack-view-stage-view div div {
+                    height: 100%;
+                }
             `
-            styles.id = "lit-styles";
+            styles.id = "authentication-view-styles";
             let body = document.body;
             body.appendChild(styles);
         }
@@ -105,4 +136,4 @@ const AuthenticationController = (superClass) => class extends superClass {
 
 }
 
-module.exports = ExchangeNavigationController;
+module.exports = AuthenticationController;

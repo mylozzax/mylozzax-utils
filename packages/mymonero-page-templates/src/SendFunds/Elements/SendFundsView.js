@@ -1,13 +1,18 @@
 import { html, css, LitElement } from 'lit';
+import { classMap } from 'lit/directives/class-map.js';
 import SendFundsController from "../Controllers/SendFundsController";
 
 export default class SendFundsView extends SendFundsController (LitElement) {
     static get styles() {
         return css`
+            [hidden] { display: none !important; }
+
             :host {
                 all: initial;
                 display: block;
                 contain: content;
+                height: inherit;
+
             }
             .form_field {
                 padding: 0 24px 20px 24px;
@@ -86,6 +91,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
             }
             .action-button-wrapper a {
                 opacity: 1; 
+                position: relative;
                 background-position: 17px 9px; 
                 background-repeat: no-repeat; 
                 background-size: 14px 14px; 
@@ -134,11 +140,15 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 top: -29px;
                 position: relative;
             }
-            mym-message-dialog {
-                margin: 25px;
-                padding: 0px;
-                display: inline-block;
-                width: 100%;
+            .title-label {
+                color: rgb(252, 251, 252); position: absolute; top: -1px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; font-size: 13px; font-weight: bold; box-sizing: border-box; left: calc(15% + 16px); width: calc((70% - 32px) - 0px); padding-left: 0px; height: 41px; text-align: center; line-height: 41px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            }
+            .right-navigation-button {
+                cursor: default; border-radius: 3px; height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: center; border: none; text-decoration: none; line-height: 24px; box-sizing: border-box; width: auto; padding: 0px 8px; background-color: rgb(0, 198, 255); box-shadow: rgba(255, 255, 255, 0.2) 0px 0.5px 0px 0px inset; color: rgb(22, 20, 22); font-weight: 600; -webkit-font-smoothing: subpixel-antialiased; font-size: 12px; letter-spacing: 0.5px; float: right; margin-top: 10px; app-region: no-drag; position: absolute; right: 0px;
+            }
+
+            #NavigationBarView{
+                background; rgba(0,255,0,0.5);
             }
         `
     }
@@ -146,31 +156,57 @@ export default class SendFundsView extends SendFundsController (LitElement) {
 
 
     togglePaymentID() {
-        this.displayPaymentIDInput = !this.displayPaymentIDInput;
+        this.showPaymentIDInput = !this.showPaymentIDInput;
     }
 
-    updateSelectedContact(event) {
-        console.log(this);
-        console.log(event);
-        //this.contactIndex = 
-    }
-
+    
     logInputEvent(event) {
         console.log(event);
     }
-
-    closeMessageDialog() {
-        console.log("Hi from CMD");
+    
+    /** Event listeners for handling message dialog, contact selection, etc */
+    closeMessageDialogEventListener() {
         this.showMessageDialog = false;
     }
+
+    contactPickerContactDeselectedEventListener(event) {
+        this.contactIndex = null;
+    }    
+
+    // Uses resolveAddress from the super class to invoke address resolution
+    async contactPickerInputUpdated(event) {
+        console.log("contactPickerInputUpdated");
+        let address = event.detail.contactPickerInput;
+        try {
+            let addressResolutionResult = await this.resolveAddress(address);
+            if (addressResolutionResult !== false) {
+                this.showAddressResolutionField = true;
+                this.addressResolutionFieldText = "888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkRxbANsAnjyPbb3iQ1YBRk1UXcdRsiKc9dhwMVgN5S9cQUiyoogDavup3H";
+            }
+        } catch (error) {
+            this.showMessageDialog = true;
+            this.messageText = error.message;
+            console.log(error);
+        }
+    }
+    
+    contactPickerContactSelectedEventListener(event) {
+        this.contactIndex = event.detail.contactIndex;
+        console.log("Show contact's address if not OA / Yat");
+        console.log(this.context.contacts[this.contactIndex]);
+    }    
+    /* End of event listeners */
+
 
     connectedCallback() {
         super.connectedCallback();
         this.wallets = this.context.walletsListController.records;
         this.contacts = this.context.contactsListController.records;
         this.renderStyles();
-        this.addEventListener('mym-contact-picker-update', this.updateSelectedContact);
-        this.addEventListener('mym-message-dialog-close', this.closeMessageDialog);
+        this.addEventListener('mym-contact-picker-contact-selected', this.contactPickerContactSelectedEventListener);
+        this.addEventListener('mym-contact-picker-contact-deselected', this.contactPickerContactDeselectedEventListener);
+        this.addEventListener('mym-contact-picker-input-updated', this.contactPickerInputUpdated);
+        this.addEventListener('mym-message-dialog-close', this.closeMessageDialogEventListener);
         
         //this.addEventListener('input', this.handleFilepickerChange);
         //this.addEventListener('change', this.handleFilepickerChange);
@@ -189,8 +225,11 @@ export default class SendFundsView extends SendFundsController (LitElement) {
         this.context = {};
         this.showPaymentIDInput = false;
         this.showResolvingIndicator = false;
-        this.showMessageDialog = true;
-        this.messageText = "Woot";
+        this.showMessageDialog = false;
+        this.showAuthenticationDialog = false;
+        this.showAddressResolutionField = false;
+        this.addressResolutionFieldText = "";
+        this.messageText = "";
         this.paymentID = "";
     }
     
@@ -203,48 +242,83 @@ export default class SendFundsView extends SendFundsController (LitElement) {
             showResolvingIndicator: { type: Boolean },
             showPaymentIDInput: { type: Boolean },
             showMessageDialog: { type: Boolean },
+            showAuthenticationDialog: { type: Boolean },
+            showAddressResolutionField: { type: Boolean },
+            addressResolutionFieldText: { type: String },
             messageText: { type: String },
             paymentID: { type: String }
         }
     }
     
-    openClickableLink(event, context) {
-        // We need to determine whether we're invoking this via Electron or via a browser, and adjust accordingly
-        let referrer_id = event.srcElement.getAttribute("referrer_id");
-        let url = event.srcElement.getAttribute("url");
-        let paramStr = event.srcElement.getAttribute("param_str");
-        if (typeof(this.context.shell) !== "undefined") { // Electron passes the shell variable as part of context
-            if (referrer_id.length > 0) {
-                let urlToOpen = url + "?" + paramStr + "=" + referrer_id;
-                context.shell.openExternal(urlToOpen);
-            } else {
-                context.shell.openExternal("https://localmonero.co");
-            }
-        } else { // Web (and Capacitor?) codebase
-            if (referrer_id.length > 0) {
-                let urlToOpen = url + "?" + paramStr + "=" + referrer_id;
-                window.open(urlToOpen);
-            } else {
-                window.open("https://localmonero.co");
-            }
-        }
-    }
+    // openClickableLink(event, context) {
+    //     // We need to determine whether we're invoking this via Electron or via a browser, and adjust accordingly
+    //     let referrer_id = event.srcElement.getAttribute("referrer_id");
+    //     let url = event.srcElement.getAttribute("url");
+    //     let paramStr = event.srcElement.getAttribute("param_str");
+    //     if (typeof(this.context.shell) !== "undefined") { // Electron passes the shell variable as part of context
+    //         if (referrer_id.length > 0) {
+    //             let urlToOpen = url + "?" + paramStr + "=" + referrer_id;
+    //             context.shell.openExternal(urlToOpen);
+    //         } else {
+    //             context.shell.openExternal("https://localmonero.co");
+    //         }
+    //     } else { // Web (and Capacitor?) codebase
+    //         if (referrer_id.length > 0) {
+    //             let urlToOpen = url + "?" + paramStr + "=" + referrer_id;
+    //             window.open(urlToOpen);
+    //         } else {
+    //             window.open("https://localmonero.co");
+    //         }
+    //     }
+    // }
 
-    openExternal(url) {
-        // Check whether we're on desktop, or web and Android
-        if (typeof(this.context.shell) !== "undefined") { // Electron passes the shell variable as part of context            
-            this.context.shell.openExternal(url);            
-        } else { // Web (and Capacitor?) codebase            
-            window.open(url, "_blank");
+    // openExternal(url) {
+    //     // Check whether we're on desktop, or web and Android
+    //     if (typeof(this.context.shell) !== "undefined") { // Electron passes the shell variable as part of context            
+    //         this.context.shell.openExternal(url);            
+    //     } else { // Web (and Capacitor?) codebase            
+    //         window.open(url, "_blank");
+    //     }
+    // }
+
+    handleSendfunds_pressed() {
+        // check address is valid
+        if (false) {
+            this.messageText = "Please specify a valid address";
+            this.showMessageDialog = true;
+            return;
         }
+        // check valid amount entered or max set
+        if (false) {
+            this.messageText = "Please specify a valid amount";
+            this.showMessageDialog = true;
+        }
+        //this.showAuthenticationDialog = true;
     }
 
     render() {
+        let authenticationClassObject = { display: this.showAuthenticationDialog };
+        // <mym-authentication-view class=${this.display}></mym-authentication-view>
         return html`
         <div id="sendfunds-page">
+            <div id="sendfunds-navigation">
+                <div class="NavigationBarView" id="NavigationBarView" style="position: absolute; top: 0%; z-index: 9; width: 100%; height: 41px; background-color: rgb(39, 37, 39); app-region: drag; user-select: none;">
+                    <div style="position: absolute; width: 100%; height: 41px; background-color: rgb(39, 37, 39);">
+                    
+                    </div>
+                    <span class="title-label">Send Monero</span>
+                    <div id="leftBarButtonHolderView" class="nav-button-left-container">
+                    
+                    </div>
+                    <div id="rightBarButtonHolderView" class="nav-button-right-container">
+                        <div class="right-navigation-button action" @click=${this.handleSendfunds_pressed}>Send</div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <div class="ClassNameForScrollingAncestorOfScrollToAbleElement" style="user-select: none; position: relative; box-sizing: border-box; width: 100%; height: 100%; padding: 41px 0px 0px; overflow-y: auto; background-color: rgb(39, 37, 39); color: rgb(192, 192, 192); word-break: break-all;">
-                    <mym-message-dialog .message="${this.messageText}" .showMessage="${this.showMessageDialog}"></mym-message-dialog>
+                    <mym-message-dialog .message="${this.messageText}" .showMessage="${this.showMessageDialog}">
+                    </mym-message-dialog>
                 </div>
                 <div>
                     <div class="form_field">
@@ -302,6 +376,10 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                     <mym-contact-picker .contacts="${this.contacts}"></mym-contact-picker>    
                     <activity-indicator .loadingText="Resolving..." ?hidden=${!this.showResolvingIndicator}></activity-indicator>
                 </div>
+                <div id="address-resolution-field" ?hidden=${!this.showAddressResolutionField}>
+                    <span class="field_title field-title-label" style="margin-top: 12px;">MONERO ADDRESS</span>
+                    <div class="address-resolution-field">${this.addressResolutionFieldText}</div>
+                </div>
                 </div>
                 <div style="display: none;"><span class="field_title" style="user-select: none; display: block; margin: 12px 0px 8px 8px; text-align: left; color: rgb(248, 247, 248); font-family: Native-Light, input, menlo, monospace; -webkit-font-smoothing: subpixel-antialiased; font-size: 10px; letter-spacing: 0.5px; font-weight: 300;">MONERO ADDRESS
                 </span><div style="border-radius: 3px; background-color: rgb(56, 54, 56); padding: 8px 11px; box-sizing: border-box; width: 100%; height: auto; color: rgb(124, 122, 124); font-size: 13px; font-weight: 100; font-family: Native-Light, input, menlo, monospace; -webkit-font-smoothing: subpixel-antialiased; word-break: break-all;">
@@ -358,9 +436,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 <div style="position: absolute; z-index: 999999; inset: 0px; background-color: rgb(39, 37, 39); display: none;"><div style="position: absolute; background-color: rgb(29, 27, 29); margin: 56px 15px 15px; width: calc(100% - 32px); border: 1px dashed rgb(73, 71, 73); border-radius: 6px; height: calc(100% - 73px);"><div style="width: 100%; height: 48px; background-size: 48px 48px; background-image: url('../../assets/img/qrDropzoneIcon@3x.png'); background-position: center center; background-repeat: no-repeat; margin-top: 108px;"></div><div style="width: 100%; height: auto; text-align: center; margin-top: 24px; font-size: 13px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: rgb(158, 156, 158); font-weight: 300; -webkit-font-smoothing: subpixel-antialiased;">Drag and drop a<br>Monero Request Code </div></div></div></div></div>
             </div>
         </div>
-        <div>
-            <mym-authentication-view .context=${this.context}></mym-authentication-view>
-        </div>
+        <mym-authentication-view class=${classMap(authenticationClassObject)}></mym-authentication-view>
         `;
     }
     useCamera() {

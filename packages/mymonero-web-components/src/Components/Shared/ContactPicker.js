@@ -276,6 +276,7 @@ export class MyMoneroContactPicker extends LitElement {
     }
 
     async updateSearchTextValue(event) {
+        //console.log("UpdateSTV");
         var eventPath = event.path || (event.composedPath && event.composedPath());
         this.searchString = eventPath[0].value;
         let hasResults = await this.filterSelect();
@@ -284,21 +285,22 @@ export class MyMoneroContactPicker extends LitElement {
         }
         let options = {
             detail: { 
-                event
+                contactPickerInput: this.searchString
             },
             bubbles: true,
             composed: true
         };
-        let addressFieldUpdated = new CustomEvent("mym-contact-picker-resolve-address", options)
+        let addressFieldUpdated = new CustomEvent("mym-contact-picker-input-updated", options)
         this.dispatchEvent(addressFieldUpdated, options);
     }
 
     render() {
         
         // Render the contacts dropdown based on search text
-        if (this.filteredContacts.length > 0 && this.filteredContacts[0].name !== "") {
+        // if (this.filteredContacts.length > 0 && this.filteredContacts[0].name !== "") {
             const contactTemplates = [];
             let contactIndex = 0;
+            let showDropdownResults = false;
             for (const contactObj of this.filteredContacts) {                        
                 let template = html`
                         <div class="row" @click=${this.handleSelectionEvent} data-index="${contactIndex}">
@@ -310,6 +312,7 @@ export class MyMoneroContactPicker extends LitElement {
                         </div>`
                 contactTemplates.push(template)
                 contactIndex++;
+                showDropdownResults = true;
             }
 
             return html` 
@@ -323,7 +326,7 @@ export class MyMoneroContactPicker extends LitElement {
                         ?hidden=${this.hasPickedContact}
                         >
                     <div id="dropdown" class="dropdown-content" ?hidden=${!this.showDropdown}>
-                        <div id="dropdown-results">
+                        <div id="dropdown-results" ?hidden=${!showDropdownResults}>
                             ${contactTemplates}
                         </div>
                     </div>
@@ -342,14 +345,15 @@ export class MyMoneroContactPicker extends LitElement {
                             : ''
                     }
                 </div>`
-        } else {
-            return html` 
-            <div class="dropdown">
-                <input type="text" placeholder="Contact name, address/domain, or Yat address" id="searchText" @input=${this.updateSearchTextValue} .value=${this.searchString}>
-                <div id="dropdown" class="dropdown-content" ?hidden=${!this.showDropdown}>
-                </div>
-            </div>`
-        }
+        // } else {
+        //     return html` 
+        //     <div class="dropdown">
+        //         <input type="text" placeholder="Contact name, address/domain, or Yat address" id="searchText" @input=${this.updateSearchTextValue} .value=${this.searchString}>
+        //         <div id="dropdown" class="dropdown-content" ?hidden=${!this.showDropdown}>
+                
+        //         </div>
+        //     </div>`
+        // }
     }
     deselectContact() {
         console.log("Deselect");

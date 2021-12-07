@@ -62,7 +62,6 @@ export default class AuthenticationView extends AuthenticationController(LitElem
                 width: auto;
                 float: left;                
                 width: 100%;
-
             }
             .authentication-input {
                 display: block;
@@ -94,6 +93,7 @@ export default class AuthenticationView extends AuthenticationController(LitElem
                 justify-content: space-between;
                 color: #ffffff;
                 text-align: center;
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
             }
             .authentication-navigation-bar span:nth-of-type(1) {
                 flex-grow: 1;
@@ -103,7 +103,6 @@ export default class AuthenticationView extends AuthenticationController(LitElem
                 color: rgb(252, 251, 252);
                 position: absolute;
                 top: -1px;
-                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
                 font-size: 13px;
                 font-weight: bold;
                 box-sizing: border-box;
@@ -155,14 +154,38 @@ export default class AuthenticationView extends AuthenticationController(LitElem
                 font-size: 13px;
                 font-weight: 600;
                 display: block;
-                float: left;
                 margin-top: 10px;
                 app-region: no-drag;
                 position: absolute;
-                left: 0px;
+            }
+            .left-menu-button {
+                left: 20px !important;
+            }
+            .right-menu-button {
+                right: 20px !important;
+                background-color: rgb(0, 198, 255) !important;
+                box-shadow: rgb(255 255 255 / 20%) 0px 0.5px 0px 0px inset !important;
+                color: rgb(22, 20, 22);
             }
             .utility {
-                cursor: default; border-radius: 3px; height: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; text-align: center; border: none; text-decoration: none; line-height: 24px; box-sizing: border-box; width: auto; padding: 0px 8px; box-shadow: rgb(73, 71, 73) 0px 0.5px 0px 0px inset; background-color: rgb(56, 54, 56); color: rgb(252, 251, 252); font-size: 13px; font-weight: 600; display: block; float: left; margin-top: 10px; app-region: no-drag; position: absolute; left: 0px;
+                cursor: default; 
+                border-radius: 3px; 
+                height: 24px; 
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
+                text-align: center; 
+                border: none; 
+                text-decoration: none; 
+                line-height: 24px; 
+                box-sizing: border-box; 
+                width: auto; 
+                padding: 0px 8px; 
+                box-shadow: rgb(73, 71, 73) 0px 0.5px 0px 0px inset; 
+                background-color: rgb(56, 54, 56); 
+                color: rgb(252, 251, 252); 
+                font-size: 13px; 
+                font-weight: 600; 
+                margin-top: 10px;
+                app-region: no-drag;
             }
         `;
     }
@@ -180,6 +203,7 @@ export default class AuthenticationView extends AuthenticationController(LitElem
     connectedCallback() {
         super.connectedCallback();
         console.log("connecting auth");
+        console.log(this.context);
         this.addEventListener("mym-display-password-screen", this.handleDisplayPasswordScreenEvent);
         this.displayPasswordScreen = false;
         // console.log(root);
@@ -197,7 +221,7 @@ export default class AuthenticationView extends AuthenticationController(LitElem
         //document.addEventListener("sendfunds_pressed", ()=> { this.handleSendfunds_pressed() });
         let eventTarget = document.getElementById("rightBarButtonHolderView");
         eventTarget.addEventListener("sendfunds_pressed", this.handleSendfunds_pressed.bind(this));
-        let myEvent = new CustomEvent('my-event', {
+        let myEvent = new CustomEvent('mym-handle-authentication-attempt', {
             detail: { message: 'my-event happened.' },
             bubbles: true,
             composed: true 
@@ -212,8 +236,36 @@ export default class AuthenticationView extends AuthenticationController(LitElem
         eventTarget.removeEventListener("sendfunds_pressed", this.handleSendfunds_pressed.bind(this));
     }
 
+    handleCancelEvent() {
+        let cancelEvent = new CustomEvent("mym-authentication-cancellation", {
+            bubbles: true,
+            composed: true
+        });
+        this.dispatchEvent(cancelEvent);
+    }
+
     handleDisplayPasswordScreenEvent() {
         this.displayPasswordScreen = false;
+    }
+
+    // Check if key pressed was "enter", handle request if true
+    handleTextInputEvent() {
+
+    }
+
+    // handle password request
+    handleSubmissionRequestEvent() {
+        if (this.password === this.context.passwordController.password) {
+            // success
+            let authenticatedSuccessfullyEvent = new CustomEvent("mym-authentication-success", {
+                detail: { success: true },
+                bubbles: true,
+                composed: true 
+            })
+            this.dispatchEvent(authenticatedSuccessfullyEvent);
+        } else {
+
+        }
     }
 
     constructor() {
@@ -223,7 +275,8 @@ export default class AuthenticationView extends AuthenticationController(LitElem
     
     static properties = {
         context: Object,
-        displayPasswordScreen: { type: Boolean }
+        displayPasswordScreen: { type: Boolean },
+        password: { type: String }
     } 
 
     render() {
@@ -232,9 +285,12 @@ export default class AuthenticationView extends AuthenticationController(LitElem
             <div class="authentication-wrapper">
                 <div class="authentication-navigation-bar">
                     <span>
-                        <div class="hoverable-cell utility disableable">Cancel</div></span>
+                        <div id="mym-authentication-cancel" class="left-menu-button hoverable-cell utility disableable" @click=${this.handleCancelEvent}>Cancel</div>
+                    </span>
                     <span>Enter PIN</span>
-                    <span>Submit</span>
+                    <span>
+                        <div id="mym-authentication-submit" class="right-menu-button hoverable-cell utility disableable" @click=${this.handleSubmissionRequestEvent}>Submit</div>
+                    </span>
                 </div>
             </div>
             <div class="authentication-input-wrapper">
@@ -242,7 +298,7 @@ export default class AuthenticationView extends AuthenticationController(LitElem
                     <div class="authentication-title">
                     PIN
                     </div>
-                    <input type="password" placeholder="To continue" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+                    <input .value=${this.password} type="password" placeholder="To continue" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" @click=${this.handleTextInputEvent}>
                 </div>
             </div>
         `;

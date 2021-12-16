@@ -4,6 +4,10 @@ function New_ParsedPayload_FromPossibleRequestURIString (string, nettype, monero
   // throws; -> {}
   //
   // detect no-scheme moneroAddr and possible OA addr - if has no monero: prefix
+
+  const coinSymbol = "XMR";
+  const coinUriPrefix = "monero:";
+
   if (string.indexOf(coinUriPrefix) !== 0) {
     const stringHasQMark = string.indexOf('?') !== -1
     if (stringHasQMark) {

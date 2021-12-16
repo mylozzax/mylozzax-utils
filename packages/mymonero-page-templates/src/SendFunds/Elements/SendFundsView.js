@@ -1,13 +1,16 @@
 import { html, css, LitElement } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import SendFundsController from "../Controllers/SendFundsController";
-//import monero_requestURI_utils from "@mymonero/mymonero-request-utils";
+import AddressResolver from "@mymonero/mymonero-address-resolver"
+import monero_requestURI_utils from "@mymonero/mymonero-request-utils";
 /* TODO:
 
 - DONE: Set default currency type
 - Do conversion before send when not using XMR
 - Handle MAX
-- Hook up camera button
+- DONE: Add event listener for camera button
+- DONE: Add event listener for choose file button
+- Hook up camera file data to New_ParsedPayload_FromPossibleRequestURIString in mymonero-request-utils
 - Hook up choose file to New_ParsedPayload_FromPossibleRequestURIString in mymonero-request-utils
 - DONE: Show authentication only when enabled by user
 - Listen for "enter" on auth check
@@ -16,7 +19,7 @@ import SendFundsController from "../Controllers/SendFundsController";
 - DONE: Add cancel button to auth
 - Add "detected" and display "payment id" when contact is selected
 - DONE: Fix formatting on Send button
-- Fix styles on ccy dropdown
+- DONE: Fix styles on ccy dropdown
 
 */
 
@@ -248,14 +251,23 @@ export default class SendFundsView extends SendFundsController (LitElement) {
 
     // Uses resolveAddress from the super class to invoke address resolution
     async contactPickerInputUpdatedEventListener(event) {
-        console.log("contactPickerInputUpdated");
         let address = event.detail.contactPickerInput;
         this.showAddressResolutionField = false;
         try {
             let addressResolutionResult = await this.resolveAddress(address);
             if (addressResolutionResult !== false) {
+                console.log("Result true", addressResolutionResult);
+                if (addressResolutionResult == "no records found") {
+                    this.address = address;
+                } else {
+
+                }
                 this.showAddressResolutionField = true;
                 this.addressResolutionFieldText = addressResolutionResult.address
+
+            } else {
+                console.log("Result false", address);
+                this.address = address;
             }
         } catch (error) {
             this.showMessageDialog = true;
@@ -278,18 +290,17 @@ export default class SendFundsView extends SendFundsController (LitElement) {
 
     handleMaxButtonClick() {
         let selectedWallet = this.selectedWallet;
-        const availableWalletBalance = this.selectedWallet.Balance_JSBigInt().subtract(this.selectedWallet.LockedBalance_JSBigInt()) // TODO: is it correct to incorporate locked balance into this?
+        // const availableWalletBalance = this.selectedWallet.Balance_JSBigInt().subtract(this.selectedWallet.LockedBalance_JSBigInt()) // TODO: is it correct to incorporate locked balance into this?
         //const estNetworkFee_moneroAmount = self.new_xmr_estFeeAmount()
-        console.log(availableWalletBalance);
-        this.maximumAmountText = "MAX";
+        // console.log(availableWalletBalance);
+        this.amountText = "MAX";
         const possibleMax_moneroAmount = availableWalletBalance.subtract(estNetworkFee_moneroAmount)
         if (possibleMax_moneroAmount > 0) { // if the Max amount is greater than 0
             return possibleMax_moneroAmount
         }
         //return new JSBigInt('0')
-        this.maximumAmountText = possibleMax_moneroAmount;
+        this.amountText = possibleMax_moneroAmount;
         this.sendMaximumAmount = true;
-        // Add event listener that clears maximumAmountText if focused
     }
 
     handleWalletSelectorUpdate(event) {
@@ -303,8 +314,6 @@ export default class SendFundsView extends SendFundsController (LitElement) {
         this.wallets = this.context.walletsListController.records;
         this.contacts = this.context.contactsListController.records;
         this.estimatedFee = BigInt(this.context.monero_utils.estimated_tx_network_fee(null, 1, '24658'));
-        console.log(this.context.monero_utils.estimated_tx_network_fee(null, 1, '24658'));
-        console.log(this.estimatedFee);
         this.renderStyles();
         this.addEventListener('mym-contact-picker-contact-selected', this.contactPickerContactSelectedEventListener);
         this.addEventListener('mym-contact-picker-contact-deselected', this.contactPickerContactDeselectedEventListener);
@@ -335,7 +344,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
         this.showAddressResolutionField = false;
         this.addressResolutionFieldText = "";
         this.messageText = "";
-        this.maximumAmountText = "";
+        this.amountText = "";
         this.sendMaximumAmount = false;
         this.paymentID = "";
         this.currencies = ["XMR","USD","AUD","BRL","CAD","CHF","CNY","EUR","GBP","HKD","INR","JPY","KRW","MXN","NOK","NZD","SEK","SGD","TRY","RUB","ZAR"];
@@ -355,7 +364,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
             showContactPaymentID: { type: Boolean },
             addressResolutionFieldText: { type: String },
             messageText: { type: String },
-            maximumAmountText: { type: String },
+            amountText: { type: String },
             sendMaximumAmount: { type: Boolean },
             estimatedFee: { type: Number },
             paymentID: { type: String },
@@ -461,7 +470,7 @@ export default class SendFundsView extends SendFundsController (LitElement) {
                 </div>
                 <div class="form_field" style="position: relative; left: 0px; top: 0px; padding: 2px 22px 0px;">
                     <span class="field_title" style="user-select: none; display: block; margin: 0px 0px 8px 8px; text-align: left; color: rgb(248, 247, 248); font-family: Native-Light, input, menlo, monospace; -webkit-font-smoothing: subpixel-antialiased; font-size: 10px; letter-spacing: 0.5px; font-weight: 300;">AMOUNT</span>
-                    <input class="field_value currency_value" type="text" placeholder="00.00" value=${this.maximumAmountText}>
+                    <input class="field_value currency_value" type="text" placeholder="00.00" value=${this.amountText} >
                     <select class="currency_select">
                         ${currencyOptions}
                     </select>
@@ -549,7 +558,68 @@ export default class SendFundsView extends SendFundsController (LitElement) {
     useCamera() {
         console.log("camera");
     }
-    handleFilepickerChange(event) {
+    onImageLoad(event) {            
+        // Render thumbnail.
+        // var span = document.createElement('span');
+        // span.innerHTML = ['<img class="thumb" src="', e.target.result,
+        //                     '" title="', escape(theFile.name), '"/>'].join('');
+        // document.getElementById('list').insertBefore(span, null);
+        console.log(e);
+        console.log(e.target);
+        console.log(e.target.result); // pass this to QR decoder
+        uriString = e.target.result;
+        console.log(event);
+        try {
+            console.log(uriString);
+            // requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+            requestPayload = this.context.monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(uriString, self.context.nettype, self.context.monero_utils)
+            console.log(requestPayload);
+        } catch (errStr) {
+            console.log(errStr);
+            if (errStr) {
+                self.validationMessageLayer.SetValidationError("Unable to use the result of decoding that QR code: " + errStr)
+                return
+            }
+        }
+    }
+
+    parseImage(event) {
+        console.log(event);
+        console.log(this);
+    }
+
+    handleAddressResolverFilepickerResolutionEvent(event) {
+        console.log("Hi from handler");
+        console.log(event);
+        let qrData = event.detail.qrData;
+        if (qrData === null) {
+            this.showMessageDialog = true;
+            this.messageText = "MyMonero was not able to detect a QR code in the file you selected. Please double-check your file and try again";
+        }
+        let requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(qrData.chunks[0].text, this.context.nettype, this.context.monero_utils)
+        if (typeof(requestPayload.address) !== undefined) {
+            let options = {
+                detail: {
+                    address: requestPayload.address
+                }
+            }
+            let updateAddressFieldEvent = new Event("mym-contact-picker-update-address", options);
+            this.dispatchEvent(updateAddressFieldEvent);
+        } else {
+            this.showMessageDialog = true;
+            this.messageText = "MyMonero was not able to detect a Monero address in the QR image you selected. Please ensure you selected a valid QR code image and try again";
+        }
+        // update optional fields
+        if (typeof(requestPayload.message) !== "undefined") {
+            this.showPaymentIDInput = true;
+            this.paymentID = requestPayload.message;
+        }
+        if (typeof(requestPayload.amount) !== "undefined") {
+            this.amount = requestPayload.amount;
+        }
+    }
+    
+    async handleFilepickerChange(event) {
         console.log(event);
         var eventPath = event.path || (event.composedPath && event.composedPath());
         if (eventPath[0].id = "file-picker") {
@@ -563,32 +633,59 @@ export default class SendFundsView extends SendFundsController (LitElement) {
             var reader = new FileReader();
             var file = files[0];
             // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
-                // Render thumbnail.
-                // var span = document.createElement('span');
-                // span.innerHTML = ['<img class="thumb" src="', e.target.result,
-                //                     '" title="', escape(theFile.name), '"/>'].join('');
-                // document.getElementById('list').insertBefore(span, null);
-                console.log(e);
-                console.log(e.target);
-                console.log(e.target.result); // pass this to QR decoder
-                };
-            })(file);
+            let addressResolver = new AddressResolver();
+            // addressResolver.decodeAddressDetailsFromImageFile will emit an event 'mym-address-resolver-address-resolution-event'
+            addressResolver.decodeAddressDetailsFromImageFile(file);
+            var uriString;
+            let eventOptions = { once: true };
+            document.addEventListener('mym-address-resolver-address-resolution-event', this.handleAddressResolverFilepickerResolutionEvent.bind(this), eventOptions);  
 
+            // reader.onload = (function(file, litElement) {
+            //     console.log(litElement);
+            //     return function(e) {
+            //         // Render thumbnail.
+            //         // var span = document.createElement('span');
+            //         // span.innerHTML = ['<img class="thumb" src="', e.target.result,
+            //         //                     '" title="', escape(theFile.name), '"/>'].join('');
+            //         // document.getElementById('list').insertBefore(span, null);
+            //         console.log(this);
+            //         console.log(e);
+            //         console.log(e.target);
+            //         console.log(e.target.result); // pass this to QR decoder
+            //         uriString = e.target.result;
+            //         try {
+            //             console.log(uriString);
+            //             // requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+            //             requestPayload = this.context.monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(uriString, self.context.nettype, self.context.monero_utils)
+            //             console.log(requestPayload);
+            //         } catch (errStr) {
+            //             console.log(errStr);
+            //             if (errStr) {
+            //                 self.validationMessageLayer.SetValidationError("Unable to use the result of decoding that QR code: " + errStr)
+            //                 return
+            //             }
+            //         }
+            //     };
+            // })(file, this);
+            //reader.addEventListener('load', this.parseImage);
+            
+            // reader.addEventListener('load', );
             // Read in the image file as a data URL.
-            reader.readAsDataURL(file);
+            // reader.readAsDataURL(file);
+            
             //
-            var requestPayload;
-            try {
-                // requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
-                requestPayload = this.context.monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
-            } catch (errStr) {
-                if (errStr) {
-                    self.validationMessageLayer.SetValidationError("Unable to use the result of decoding that QR code: " + errStr)
-                    return
-                }
-            }
+            // var requestPayload = uriString;
+            // try {
+            //     console.log(possibleUriString);
+            //     // requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+            //     requestPayload = addressResolver.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+            // } catch (errStr) {
+            //     if (errStr) {
+            //         //self.validationMessageLayer.SetValidationError("Unable to use the result of decoding that QR code: " + errStr)
+            //         console.log("!!!!!!!!!!!!!!! error");
+            //         return
+            //     }
+            // }
 
             // }
             // image.src = httpsSrc;

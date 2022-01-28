@@ -1,6 +1,6 @@
 const Utils = require('./UtilityFunctions.js');
 const CurrencyMetadata = require("./CurrencyMetadata");
-const ExchangeLibrary = require('@mymonero/mymonero-exchange')
+const ExchangeLibrary = require('@mylozzax/mylozzax-exchange')
 const handleOfferError = require('./ErrorHelper')
 const exchangeFunctions = new ExchangeLibrary()
 const validationMessages = document.getElementById('validation-messages');

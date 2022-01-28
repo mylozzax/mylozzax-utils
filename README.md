@@ -7,11 +7,11 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mymonero/mymonero-utils/actions?query=branch%3Amaster+workflow%3Aci"><img alt="CI Status" src="https://github.com/mymonero/mymonero-utils/workflows/ci/badge.svg?branch=master"></a>
-  <a href="https://snyk.io/test/github/mymonero/mymonero-utils"><img src="https://snyk.io/test/github/mymonero/mymonero-utils/badge.svg"></a>
+  <a href="https://github.com/mylozzax/mylozzax-utils/actions?query=branch%3Amaster+workflow%3Aci"><img alt="CI Status" src="https://github.com/mylozzax/mylozzax-utils/workflows/ci/badge.svg?branch=master"></a>
+  <a href="https://snyk.io/test/github/mylozzax/mylozzax-utils"><img src="https://snyk.io/test/github/mylozzax/mylozzax-utils/badge.svg"></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg"></a>
-  <a href="https://codecov.io/gh/mymonero/mymonero-utils">
-    <img src="https://codecov.io/gh/mymonero/mymonero-utils/branch/master/graph/badge.svg?token=YCDBLLJJEP"/>
+  <a href="https://codecov.io/gh/mylozzax/mylozzax-utils">
+    <img src="https://codecov.io/gh/mylozzax/mylozzax-utils/branch/master/graph/badge.svg?token=YCDBLLJJEP"/>
   </a>
 </p>
 
@@ -21,22 +21,22 @@
 
 |Package|Version|
 |---|---|
-|[@mymonero/mymonero-app-bridge](./packages/mymonero-app-bridge)|[![MyMonero App Bridge](https://img.shields.io/npm/v/@mymonero/mymonero-app-bridge.svg)](https://npmjs.com/package/@mymonero/mymonero-app-bridge)|
-|[@mymonero/mymonero-bigint](./packages/mymonero-bigint)|[![MyMonero BigInt](https://img.shields.io/npm/v/@mymonero/mymonero-bigint.svg)](https://npmjs.com/package/@mymonero/mymonero-bigint)|
-|[@mymonero/mymonero-bridge-utils](./packages/mymonero-bridge-utils)|[![MyMonero Bridge Utils](https://img.shields.io/npm/v/@mymonero/mymonero-bridge-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-bridge-utils)|
-|[@mymonero/mymonero-cryptor](./packages/mymonero-cryptor)|[![MyMonero Cryptor](https://img.shields.io/npm/v/@mymonero/mymonero-cryptor.svg)](https://npmjs.com/package/@mymonero/mymonero-cryptor)|
-|[@mymonero/mymonero-currencies](./packages/mymonero-currencies)|[![MyMonero Currencies](https://img.shields.io/npm/v/@mymonero/mymonero-currencies.svg)](https://npmjs.com/package/@mymonero/mymonero-currencies)|
-|[@mymonero/mymonero-exchange-js](./packages/mymonero-exchange-js)|[![MyMonero Exchange](https://img.shields.io/npm/v/@mymonero/mymonero-exchange.svg)](https://npmjs.com/package/@mymonero/mymonero-exchange)|
-|[@mymonero/mymonero-hosted-api](./packages/mymonero-hosted-api)|[![MyMonero Hosted Api](https://img.shields.io/npm/v/@mymonero/mymonero-hosted-api.svg)](https://npmjs.com/package/@mymonero/mymonero-hosted-api)|
-|[@mymonero/mymonero-keyimage-cache](./packages/mymonero-keyimage-cache)|[![MyMonero Key Image Cache](https://img.shields.io/npm/v/@mymonero/mymonero-keyimage-cache.svg)](https://npmjs.com/package/@mymonero/mymonero-keyimage-cache)|
-|[@mymonero/mymonero-locales](./packages/mymonero-locales)|[![MyMonero Locales](https://img.shields.io/npm/v/@mymonero/mymonero-locales.svg)](https://npmjs.com/package/@mymonero/mymonero-locales)|
-|[@mymonero/mymonero-monero-config](./packages/mymonero-monero-config)|[![MyMonero Monero Config](https://img.shields.io/npm/v/@mymonero/mymonero-monero-config.svg)](https://npmjs.com/package/@mymonero/mymonero-monero-config)|
-|[@mymonero/mymonero-money-format](./packages/mymonero-money-format)|[![MyMonero Money format](https://img.shields.io/npm/v/@mymonero/mymonero-money-format.svg)](https://npmjs.com/package/@mymonero/mymonero-money-format)|
-|[@mymonero/mymonero-net-service-utils](./packages/mymonero-net-service-utils)|[![MyMonero Net Service Utils](https://img.shields.io/npm/v/@mymonero/mymonero-net-service-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-net-service-utils)|
-|[@mymonero/mymonero-nettype](./packages/mymonero-nettype)|[![MyMonero Net Type](https://img.shields.io/npm/v/@mymonero/mymonero-nettype.svg)](https://npmjs.com/package/@mymonero/mymonero-nettype)|
-|[@mymonero/mymonero-paymentid-utils](./packages/mymonero-paymentid-utils)|[![MyMonero PaymentID Utils](https://img.shields.io/npm/v/@mymonero/mymonero-paymentid-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-paymentid-utils)|
-|[@mymonero/mymonero-request-utils](./packages/mymonero-request-utils)|[![MyMonero Request Utils](https://img.shields.io/npm/v/@mymonero/mymonero-request-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-request-utils)|
-|[@mymonero/mymonero-response-parser-utils](./packages/mymonero-response-parser-utils)|[![MyMonero Response Parser Utils](https://img.shields.io/npm/v/@mymonero/mymonero-response-parser-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-response-parser-utils)|
-|[@mymonero/mymonero-sendfunds-utils](./packages/mymonero-sendfunds-utils)|[![MyMonero Send Funds Utils](https://img.shields.io/npm/v/@mymonero/mymonero-sendfunds-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-sendfunds-utils)|
-|[@mymonero/mymonero-tx-parsing-utils](./packages/mymonero-tx-parsing-utils)|[![MyMonero TX Parsing Utils](https://img.shields.io/npm/v/@mymonero/mymonero-tx-parsing-utils.svg)](https://npmjs.com/package/@mymonero/mymonero-tx-parsing-utils)|
-|[@mymonero/mymonero-yat-lookup](./packages/mymonero-yat-lookup)|[![MyMonero Yat Lookup](https://img.shields.io/npm/v/@mymonero/mymonero-yat-lookup.svg)](https://npmjs.com/package/@mymonero/mymonero-yat-lookup)|
+|[@mylozzax/mylozzax-app-bridge](./packages/mylozzax-app-bridge)|[![MyMonero App Bridge](https://img.shields.io/npm/v/@mylozzax/mylozzax-app-bridge.svg)](https://npmjs.com/package/@mylozzax/mylozzax-app-bridge)|
+|[@mylozzax/mylozzax-bigint](./packages/mylozzax-bigint)|[![MyMonero BigInt](https://img.shields.io/npm/v/@mylozzax/mylozzax-bigint.svg)](https://npmjs.com/package/@mylozzax/mylozzax-bigint)|
+|[@mylozzax/mylozzax-bridge-utils](./packages/mylozzax-bridge-utils)|[![MyMonero Bridge Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-bridge-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-bridge-utils)|
+|[@mylozzax/mylozzax-cryptor](./packages/mylozzax-cryptor)|[![MyMonero Cryptor](https://img.shields.io/npm/v/@mylozzax/mylozzax-cryptor.svg)](https://npmjs.com/package/@mylozzax/mylozzax-cryptor)|
+|[@mylozzax/mylozzax-currencies](./packages/mylozzax-currencies)|[![MyMonero Currencies](https://img.shields.io/npm/v/@mylozzax/mylozzax-currencies.svg)](https://npmjs.com/package/@mylozzax/mylozzax-currencies)|
+|[@mylozzax/mylozzax-exchange-js](./packages/mylozzax-exchange-js)|[![MyMonero Exchange](https://img.shields.io/npm/v/@mylozzax/mylozzax-exchange.svg)](https://npmjs.com/package/@mylozzax/mylozzax-exchange)|
+|[@mylozzax/mylozzax-hosted-api](./packages/mylozzax-hosted-api)|[![MyMonero Hosted Api](https://img.shields.io/npm/v/@mylozzax/mylozzax-hosted-api.svg)](https://npmjs.com/package/@mylozzax/mylozzax-hosted-api)|
+|[@mylozzax/mylozzax-keyimage-cache](./packages/mylozzax-keyimage-cache)|[![MyMonero Key Image Cache](https://img.shields.io/npm/v/@mylozzax/mylozzax-keyimage-cache.svg)](https://npmjs.com/package/@mylozzax/mylozzax-keyimage-cache)|
+|[@mylozzax/mylozzax-locales](./packages/mylozzax-locales)|[![MyMonero Locales](https://img.shields.io/npm/v/@mylozzax/mylozzax-locales.svg)](https://npmjs.com/package/@mylozzax/mylozzax-locales)|
+|[@mylozzax/mylozzax-monero-config](./packages/mylozzax-monero-config)|[![MyMonero Monero Config](https://img.shields.io/npm/v/@mylozzax/mylozzax-monero-config.svg)](https://npmjs.com/package/@mylozzax/mylozzax-monero-config)|
+|[@mylozzax/mylozzax-money-format](./packages/mylozzax-money-format)|[![MyMonero Money format](https://img.shields.io/npm/v/@mylozzax/mylozzax-money-format.svg)](https://npmjs.com/package/@mylozzax/mylozzax-money-format)|
+|[@mylozzax/mylozzax-net-service-utils](./packages/mylozzax-net-service-utils)|[![MyMonero Net Service Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-net-service-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-net-service-utils)|
+|[@mylozzax/mylozzax-nettype](./packages/mylozzax-nettype)|[![MyMonero Net Type](https://img.shields.io/npm/v/@mylozzax/mylozzax-nettype.svg)](https://npmjs.com/package/@mylozzax/mylozzax-nettype)|
+|[@mylozzax/mylozzax-paymentid-utils](./packages/mylozzax-paymentid-utils)|[![MyMonero PaymentID Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-paymentid-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-paymentid-utils)|
+|[@mylozzax/mylozzax-request-utils](./packages/mylozzax-request-utils)|[![MyMonero Request Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-request-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-request-utils)|
+|[@mylozzax/mylozzax-response-parser-utils](./packages/mylozzax-response-parser-utils)|[![MyMonero Response Parser Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-response-parser-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-response-parser-utils)|
+|[@mylozzax/mylozzax-sendfunds-utils](./packages/mylozzax-sendfunds-utils)|[![MyMonero Send Funds Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-sendfunds-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-sendfunds-utils)|
+|[@mylozzax/mylozzax-tx-parsing-utils](./packages/mylozzax-tx-parsing-utils)|[![MyMonero TX Parsing Utils](https://img.shields.io/npm/v/@mylozzax/mylozzax-tx-parsing-utils.svg)](https://npmjs.com/package/@mylozzax/mylozzax-tx-parsing-utils)|
+|[@mylozzax/mylozzax-yat-lookup](./packages/mylozzax-yat-lookup)|[![MyMonero Yat Lookup](https://img.shields.io/npm/v/@mylozzax/mylozzax-yat-lookup.svg)](https://npmjs.com/package/@mylozzax/mylozzax-yat-lookup)|

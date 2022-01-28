@@ -1,5 +1,5 @@
 const MyMoneroLibAppBridgeClass = require('./MyMoneroLibAppBridgeClass')
-const MyMoneroBridge_utils = require('@mymonero/mymonero-bridge-utils')
+const MyMoneroBridge_utils = require('@mylozzax/mylozzax-bridge-utils')
 const path = require('path');
 
 //

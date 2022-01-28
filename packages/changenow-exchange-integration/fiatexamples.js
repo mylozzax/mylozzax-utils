@@ -51,7 +51,7 @@ async function validateAddresses() {
     console.log(response)
     console.log("1 worked")
     // valid XMR address
-    response = await instance.validateAddress('xmr', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9')
+    response = await instance.validateAddress('lozzax', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9')
     console.log(response)
     console.log("2 worked")
     // invalid XMR address

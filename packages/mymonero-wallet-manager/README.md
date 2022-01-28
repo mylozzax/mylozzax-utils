@@ -18,7 +18,7 @@
 ### Installation
 
 ```bash
-npm i @mymonero/mymonero-wallet-manager
+npm i @mylozzax/mylozzax-wallet-manager
 ```
 
 ### Initialize
@@ -26,7 +26,7 @@ npm i @mymonero/mymonero-wallet-manager
 Initialize the WABridge class which loads and prepares the WebAssembly.
 
 ```js
-const walletManager = new WalletManager('STAGENET', 'https://stagenet-api.mymonero.rtfm.net')
+const walletManager = new WalletManager('STAGENET', 'https://stagenet-api.mylozzax.rtfm.net')
 await walletManager.init()
 ```
 

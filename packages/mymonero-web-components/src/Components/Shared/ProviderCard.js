@@ -1,5 +1,5 @@
 import { html, css, LitElement } from 'lit';
-//import ExchangeNavigationController from "../../../mymonero-page-templates";
+//import ExchangeNavigationController from "../../../mylozzax-page-templates";
 //console.log(ExchangeNavigationController);
 
 export class ExchangeServiceProviderCard extends LitElement {

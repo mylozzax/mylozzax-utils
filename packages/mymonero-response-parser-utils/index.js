@@ -2,7 +2,7 @@
 
 // In the future this could implement web workers
 const response_parser_utils = require('./ResponseParser')
-const monero_keyImage_cache_utils = require('@mymonero/mymonero-keyimage-cache')
+const monero_keyImage_cache_utils = require('@mylozzax/mylozzax-keyimage-cache')
 
 class BackgroundResponseParser {
   constructor (options, context) {

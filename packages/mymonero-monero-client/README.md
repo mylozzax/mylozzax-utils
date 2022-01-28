@@ -13,8 +13,8 @@ If you would like to generate the WASM files yourself you will require docker
 
 ## Building
 
-1. Clone the repo `git clone https://github.com/mymonero/mymonero-client.git`
-1. `cd mymonero-client`
+1. Clone the repo `git clone https://github.com/mylozzax/mylozzax-client.git`
+1. `cd mylozzax-client`
 1. `rm -rf build`
 1. `rm src/MyMoneroClient_*`
 1. `npm run build`
@@ -28,7 +28,7 @@ By following these instructions, new WASM library is generated and copied to the
 ### Installation
 
 ```bash
-npm i @mymonero/mymonero-monero-client
+npm i @mylozzax/mylozzax-monero-client
 ```
 
 ### Initialize
@@ -36,7 +36,7 @@ npm i @mymonero/mymonero-monero-client
 Initialize the WABridge class which loads and prepares the WebAssembly.
 
 ```js
-const WABridge = await require('@mymonero/mymonero-monero-client')({})
+const WABridge = await require('@mylozzax/mylozzax-monero-client')({})
 ```
 
 ### Generate Wallet

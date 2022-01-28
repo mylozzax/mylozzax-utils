@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit';
 import ExchangeNavigationController from "../Controllers/ExchangeNavigationController";
-import { FiatApi } from "@mymonero/changenow-exchange-integration";
+import { FiatApi } from "@mylozzax/changenow-exchange-integration";
 
 let fiatApi = new FiatApi({ apiKey: "b1c7ed0a20710e005b65e304b74dce3253cd9ac16009b57f4aa099f2707d64a9" })
 

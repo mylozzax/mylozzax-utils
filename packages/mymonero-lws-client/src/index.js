@@ -16,14 +16,14 @@ class LWSClient {
    */
   constructor (options = {}) {
     this.httpClient = options.httpClient || axios
-    this.appName = options.appName || 'MyMonero'
+    this.appName = options.appName || 'MyLozzax'
     this.appVersion = options.appVersion || '1.1.24'
-    axios.defaults.baseURL = options.url || 'https://api.mymonero.com'
+    axios.defaults.baseURL = options.url || 'https://api.lozzax.xyz'
   }
 
   /**
    * Logs the wallet in to the server. this puts it in the queue to scan.
-   * If the wallet is not on the mymonero server it will create it if create_account is true.
+   * If the wallet is not on the mylozzax server it will create it if create_account is true.
    * @todo add test cases for create account.
    * @param {string} viewkey - Wallet private viewkey.
    * @param {string} address - Wallet primary address.

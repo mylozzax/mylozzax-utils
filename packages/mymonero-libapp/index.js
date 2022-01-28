@@ -27,7 +27,7 @@
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 const MyMoneroLibAppBridgeClass = require('./MyMoneroLibAppBridgeClass')
-const MyMoneroBridge_utils = require('../mymonero-core-js/monero_utils/MyMoneroBridge_utils')
+const MyMoneroBridge_utils = require('../mylozzax-core-js/monero_utils/MyMoneroBridge_utils')
 //
 // This function is copied here for now so that the parent directory / path discovery stuff happens from the right directory - in the future it may be worthwhile to generalize it so that it can work from any directory
 module.exports = function (options) {
@@ -69,7 +69,7 @@ module.exports = function (options) {
         // have to check != "/" b/c webpack (I think) replaces __dirname
         pathTo_cryptonoteUtilsDir = 'file://' + __dirname + '/' // prepending "file://" because it's going to try to stream it
       } else { // actual web browser
-        pathTo_cryptonoteUtilsDir = this_scriptDirectory + `/mymonero_libapp_js/libapp_js/` // this works for the MyMonero browser build, and is quite general, at least
+        pathTo_cryptonoteUtilsDir = this_scriptDirectory + `/mylozzax_libapp_js/libapp_js/` // this works for the MyMonero browser build, and is quite general, at least
       }
       fullPath = pathTo_cryptonoteUtilsDir + filename
     }

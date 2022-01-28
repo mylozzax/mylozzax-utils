@@ -1,10 +1,10 @@
 'use strict'
 
-const JSBigInt = require('@mymonero/mymonero-bigint').BigInteger
-const monero_config = require('@mymonero/mymonero-monero-config')
+const JSBigInt = require('@mylozzax/mylozzax-bigint').BigInteger
+const monero_config = require('@mylozzax/mylozzax-monero-config')
 const moment = require('moment')
-const monero_keyImage_cache_utils = require('@mymonero/mymonero-keyimage-cache')
-const monero_amount_format_utils = require('@mymonero/mymonero-money-format')
+const monero_keyImage_cache_utils = require('@mylozzax/mylozzax-keyimage-cache')
+const monero_amount_format_utils = require('@mylozzax/mylozzax-money-format')
 
 function ownedParsedTxFrom__orNil (
   raw_tx,

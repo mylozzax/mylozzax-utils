@@ -4,11 +4,11 @@ const html = require("./HtmlHelper")
 const EventListeners = require("./EventListeners")
 const TimerHelper = require('./TimerHelper');
 const CurrencyMetadata = require('./CurrencyMetadata')
-const monero_amount_format_utils = require('@mymonero/mymonero-money-format')
-const JSBigInt = require('@mymonero/mymonero-bigint')
+const monero_amount_format_utils = require('@mylozzax/mylozzax-money-format')
+const JSBigInt = require('@mylozzax/mylozzax-bigint')
 const ErrorHelper = require("./ErrorHelper")
 const InitialiseExchange = require("./initialiseExchange")
-const ExchangeFunctions = require("@mymonero/mymonero-exchange")
+const ExchangeFunctions = require("@mylozzax/mylozzax-exchange")
 const exchangeFunctions = new ExchangeFunctions();
 
 class ExchangeHelper {
@@ -17,7 +17,7 @@ class ExchangeHelper {
     constructor() {
         // Assignment to `this` variable is so that we can invoke these functions using an instance of this class in a public fashion
         this.supportedOutCurrencies = ["BTC", "ETH", "LTC"]
-        this.supportedInCurrencies = ["XMR"];
+        this.supportedInCurrencies = ["LOZZ"];
         this.baseForm = "";
 
         // Fetch form we'll insert into the content view's innerHTML

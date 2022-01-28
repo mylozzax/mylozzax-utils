@@ -1,7 +1,7 @@
 /* Require reusable components */
-//require("@mymonero/mymonero-web-components");
-//require("./node_modules/@mymonero/mymonero-web-components");
-//require("@mymonero/mymonero-web-components");
+//require("@mylozzax/mylozzax-web-components");
+//require("./node_modules/@mylozzax/mylozzax-web-components");
+//require("@mylozzax/mylozzax-web-components");
 
 /* Require various view elements */
 require("./Exchange/Elements/ChangenowBuyWithFiatView");

@@ -14,10 +14,10 @@ currencyMetadata = {
         symbol: "BTC",
         precision: 8
     },
-    "XMR": {
-        name: "Monero",
-        symbol: "XMR",
-        precision: 12
+    "LOZZ": {
+        name: "Lozzax",
+        symbol: "LOZZ",
+        precision: 9
     },
     "BCH": {
         name: "Bitcoin Cash",

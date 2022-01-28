@@ -9,7 +9,7 @@ describe('ChangeNow fiat API integration', async function() {
         it('fiat-api: should return a JSON object containing a successful response', () => {
             let from_amount = "300";
             let from_currency = "EUR";
-            let to_currency = "XMR";
+            let to_currency = "LOZZ";
             let address = "488ti8HzaWE9gyCS94YGqeJ735acPErGCWxBid5osQhJRe9pipvzrBRV4oBEVxJuLvfVZyW2J9qt1T2dB14XLejB14Kaq3o";
             return instance.createExchangeTransaction(from_amount, from_currency, to_currency, address).then(response => {
                 //expect(response.result).to.equal(true)

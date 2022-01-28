@@ -1,4 +1,4 @@
-const monero_amount_format_utils = require('@mymonero/mymonero-money-format')
+const monero_amount_format_utils = require('@mylozzax/mylozzax-money-format')
 class HtmlHelper {
     // This class is designed to return a uniform HTML structure that we can leverage in all JS codebases
     constructor() {

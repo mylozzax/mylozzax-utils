@@ -4,7 +4,7 @@ var assert = require('assert')
 const { AssertionError } = require('assert')
 var nettype = require('../../index')
 
-describe('MyMonero Net Type', function () {
+describe('MyLozzax Net Type', function () {
   describe('#nettypes', function () {
     it('should return list of network types', function () {
       assert.deepStrictEqual({

@@ -1,5 +1,5 @@
 
-const JSBigInt = require('@mymonero/mymonero-bigint').BigInteger
+const JSBigInt = require('@mylozzax/mylozzax-bigint').BigInteger
 //
 module.exports = function (currencyConfig) {
   // `currencyConfig` needs coinUnitPlaces, and coinSymbol

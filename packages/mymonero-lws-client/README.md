@@ -15,7 +15,7 @@
 ### Installation
 
 ```bash
-npm i @mymonero/mymonero-lws-client
+npm i @mylozzax/mylozzax-lws-client
 ```
 
 ### Initialize
@@ -24,11 +24,11 @@ Initialize the Light Wallet Client.
 
 ```js
 const axios = require('axios').default
-const LWSClient = require('@mymonero/mymonero-lws-client')
+const LWSClient = require('@mylozzax/mylozzax-lws-client')
 const options = {
     httpClient: axios,
-    url: 'https://api.mymonero.com',
-    appName: 'MyMonero',
+    url: 'https://api.mylozzax.xyz',
+    appName: 'MyLozzax',
     appVersion: '1.1.25'
 }
 const lwsClient = new LWSClient(options)
@@ -63,7 +63,7 @@ Example Response
 ### Get Addresses Transactions
 
 Fetches all the transactions associated with the address.
-This includes decoys. The decoys can be removed by using the generateKeyImage function in the mymonero-client repo. 
+This includes decoys. The decoys can be removed by using the generateKeyImage function in the mylozzax-client repo. 
 
 ```js
 const privateViewKey = '7bea1907940afdd480eff7c4bcadb478a0fbb626df9e3ed74ae801e18f53e104'

@@ -40,8 +40,8 @@ export class YatSettingsView extends LitElement {
     connectedCallback() {
         super.connectedCallback();
         this.wallets = this.context.walletsListController.records;
-        // this.partnerPath = "https://yat.fyi/partner/mymonero"
-        this.partnerPath = "https://y.at/partner/mymonero"
+        // this.partnerPath = "https://yat.fyi/partner/mylozzax"
+        this.partnerPath = "https://y.at/partner/mylozzax"
     }
         
     constructor() {

@@ -27,7 +27,7 @@ describe('lwsclient tests', function () {
 
     const expected = {
       isNewAddress: false,
-      startHeight: 2547018
+      startHeight: 18000
     }
 
     assert.deepStrictEqual(

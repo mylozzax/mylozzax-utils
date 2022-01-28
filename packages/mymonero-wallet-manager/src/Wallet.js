@@ -25,7 +25,7 @@ class Wallet {
     this.keyImageCache = []
     this.bridgeClass = bridge
     this.lwsClient = apiClient
-    this.url = options.url || 'https://api.mymonero.com'
+    this.url = options.url || 'https://api.lozzax.xyz'
     this.feePerb = null
     this.feeMask = null
     this.address = options.address || null
@@ -44,7 +44,7 @@ class Wallet {
     this.balancePending = new BigNumber(0)
     this.balanceUnlocked = new BigNumber(0)
     this.isSendingFunds = false
-    this.appName = options.appName || 'MyMonero'
+    this.appName = options.appName || 'MyLozzax'
     this.appVersion = options.appVersion || '1.1.24'
   }
 
@@ -363,7 +363,7 @@ class Wallet {
    * @returns A number string of monero amount.
    */
   convertFromPicos (bigNumber) {
-    return bigNumber.dividedBy(1000000000000).toFormat(12)
+    return bigNumber.dividedBy(1000000000).toFormat(9)
   }
 
   /**

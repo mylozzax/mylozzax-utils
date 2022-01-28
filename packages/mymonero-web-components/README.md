@@ -5,15 +5,15 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/mymonero/mymonero-utils/actions?query=branch%3Amaster+workflow%3Aci"><img alt="CI Status" src="https://github.com/mymonero/mymonero-utils/workflows/ci/badge.svg?branch=master"></a>
-  <a href="https://snyk.io/test/github/mymonero/mymonero-utils"><img src="https://snyk.io/test/github/mymonero/mymonero-utils/badge.svg"></a>
+  <a href="https://github.com/mylozzax/mylozzax-utils/actions?query=branch%3Amaster+workflow%3Aci"><img alt="CI Status" src="https://github.com/mylozzax/mylozzax-utils/workflows/ci/badge.svg?branch=master"></a>
+  <a href="https://snyk.io/test/github/mylozzax/mylozzax-utils"><img src="https://snyk.io/test/github/mylozzax/mylozzax-utils/badge.svg"></a>
   <a href="https://opensource.org/licenses/BSD-3-Clause"><img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg"></a>
-  <a href="https://codecov.io/gh/mymonero/mymonero-utils">
-    <img src="https://codecov.io/gh/mymonero/mymonero-utils/branch/master/graph/badge.svg?token=YCDBLLJJEP"/>
+  <a href="https://codecov.io/gh/mylozzax/mylozzax-utils">
+    <img src="https://codecov.io/gh/mylozzax/mylozzax-utils/branch/master/graph/badge.svg?token=YCDBLLJJEP"/>
   </a>
 </p>
 
-This npm module is a collection of [Lit-based](https://lit.dev) web components. These components are used by the desktop, Android and web versions of the [MyMonero wallet](https://github.com/mymonero/mymonero-app-js).
+This npm module is a collection of [Lit-based](https://lit.dev) web components. These components are used by the desktop, Android and web versions of the [MyMonero wallet](https://github.com/mylozzax/mylozzax-app-js).
 
 The package is comprised of the following components:
 
@@ -24,7 +24,7 @@ The package is comprised of the following components:
 
 # Installation
 
-`npm i @mymonero/mymonero-web-components`
+`npm i @mylozzax/mylozzax-web-components`
 
 Usage
 
@@ -32,7 +32,7 @@ To make use of these components, import this module the same way you would a nor
 
 In your javascript file:
 
-`require('@mymonero/mymonero-web-components');`
+`require('@mylozzax/mylozzax-web-components');`
 
 This will register the web component custom element tags, making them available for use in your HTML DOM
 

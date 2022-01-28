@@ -10,7 +10,7 @@ function New_ParsedPayload_FromPossibleRequestURIString (string, nettype, monero
       // fairly sure this is correct.. (just an extra failsafe/filter)
       throw Error('Unrecognized URI format')
     }
-    const couldBeOAAddress = string.indexOf('.') != -1 // contains period - would be nice to get this from DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress so maybe mymonero_core_js should gain local_modules/OpenAlias
+    const couldBeOAAddress = string.indexOf('.') != -1 // contains period - would be nice to get this from DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress so maybe mylozzax_core_js should gain local_modules/OpenAlias
     if (couldBeOAAddress) {
       return {
         address: string

@@ -1,7 +1,7 @@
 const WalletManager = require('./src/WalletManager')
 
 async function init () {
-  const walletManager = new WalletManager('STAGENET', 'https://stagenet-api.mymonero.rtfm.net')
+  const walletManager = new WalletManager('STAGENET', 'https://stagenet-api.mylozzax.rtfm.net')
   await walletManager.init()
 }
 

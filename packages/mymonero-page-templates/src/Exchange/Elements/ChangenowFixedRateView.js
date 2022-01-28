@@ -10,9 +10,9 @@ const ExchangeUtils = require("../Utils/ExchangeUtilityFunctions")
 //const View = require('../../Views/View.web')
 // const commonComponents_navigationBarButtons = require('../../MMAppUICommonComponents/navigationBarButtons.web')
 // const commonComponents_activityIndicators = require('../../MMAppUICommonComponents/activityIndicators.web')
-const JSBigInt = require('@mymonero/mymonero-bigint').BigInteger // important: grab defined export
-const monero_amount_format_utils = require('@mymonero/mymonero-money-format')
-const ExchangeHelper = require("@mymonero/mymonero-exchange-helper")
+const JSBigInt = require('@mylozzax/mylozzax-bigint').BigInteger // important: grab defined export
+const monero_amount_format_utils = require('@mylozzax/mylozzax-money-format')
+const ExchangeHelper = require("@mylozzax/mylozzax-exchange-helper")
 let exchangeHelper = new ExchangeHelper();
 
 // NB: because of legacy reasons, we don't want this to render inside a shadow dom. We override createRenderRoot to address this

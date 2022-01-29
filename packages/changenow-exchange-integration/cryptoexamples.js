@@ -27,13 +27,13 @@ async function initialise() {
 async function getMinimal() {
     let instance = new integration();
     // try {
-    //     response = await instance.getMinimalExchangeAmount('xmr', 'btc', 'fixed-rate')
+    //     response = await instance.getMinimalExchangeAmount('lozz', 'btc', 'fixed-rate')
     //     console.log(response)
     // } catch (error) {
     //     console.log(error);
     // }
 
-    let response = await instance.getMinimalExchangeAmount('xmr', 'btc', 'standard')
+    let response = await instance.getMinimalExchangeAmount('lozz', 'btc', 'standard')
     console.log(response)
 
     return response
@@ -46,12 +46,12 @@ async function validateAddresses() {
     response = await instance.validateAddress('btc', '3E6iM3nAY2sAyTqx5gF6nnCvqAUtMyRGEm')
     console.log(response)
     console.log("1 worked")
-    // valid XMR address
-    response = await instance.validateAddress('xmr', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9')
+    // valid LOZZ address
+    response = await instance.validateAddress('lozz', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9')
     console.log(response)
     console.log("2 worked")
-    // invalid XMR address
-    response = await instance.validateAddress('xmr', '3E6iM3nAY2sAyTqx5gF6nnCvqAUtMyRGEm')
+    // invalid LOZZ address
+    response = await instance.validateAddress('lozz', '3E6iM3nAY2sAyTqx5gF6nnCvqAUtMyRGEm')
     console.log(response)
     console.log("3 worked")
     return true
@@ -61,7 +61,7 @@ async function getEstimatedAmount() {
     let instance = new integration();
     let response
 
-    let fromCurrency = 'xmr';
+    let fromCurrency = 'lozz';
     let toCurrency = 'btc';
     let flow = "standard";
     let fromAmount = "0.5";
@@ -92,7 +92,7 @@ async function createOrder() {
     let instance = new integration();
     let response
 
-    let fromCurrency = "xmr"
+    let fromCurrency = "lozz"
     let toCurrency = "btc"
     let flow = "standard"
     let fromAmount = "0.5"
@@ -150,7 +150,7 @@ async function getTransactionStatus() {
     // response = await getTransactionStatus();
     // console.log(response);
     // let instance = await new ChangeNowIntegration()
-    // let meh = await instance.retrieveFilteredMoneroCurrencyData().then(response => {
+    // let meh = await instance.retrieveFilteredLozzaxCurrencyData().then(response => {
     //     console.log(response);
     // })
 

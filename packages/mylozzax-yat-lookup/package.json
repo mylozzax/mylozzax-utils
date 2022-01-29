@@ -1,0 +1,14 @@
+{
+  "name": "@mylozzax/mylozzax-yat-lookup",
+  "version": "1.3.1-alpha.0",
+  "description": "A utility module to resolve lozzax addresses and subaddresses, and retrieve permitted emoji characters from Yat's EmojiID service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Karl Buys (MyLozzax Pty Ltd)",
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  }
+}

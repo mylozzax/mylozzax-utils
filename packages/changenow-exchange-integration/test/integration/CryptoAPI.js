@@ -99,18 +99,18 @@ https://api.changenow.io/v2/fiat-currencies/crypto
 describe('ChangeNow cryptocurrency API integration', async function() {
     describe('Validate cryptocurrency addresses', function() {
         
-        describe('Test valid XMR address is reported as valid by ChangeNow', () => {
+        describe('Test valid LOZZ address is reported as valid by ChangeNow', () => {
             it('should return a JSON object in form { result: true, message: null }', () => {
-                return instance.validateAddress('xmr', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9').then(response => {
+                return instance.validateAddress('lozz', '47pasa5moXNCSyvvip6sY39VFGYymMhVEXpcaZSaP3hAVNbVXpGu5MVZn9ePeotMRFiJuLq2pB6B3Hm7uWYanyJe1yeSbm9').then(response => {
                     expect(response.result).to.equal(true)
                     expect(response.message).to.equal(null)
                 })
             })
         })
 
-        describe('Test invalid XMR address is reported as invalid by ChangeNow', () => {
+        describe('Test invalid LOZZ address is reported as invalid by ChangeNow', () => {
             it('should return a JSON object in form { result: true, message: null }', () => {
-                return instance.validateAddress('xmr', 'sadfwasdfasf').then(response => {
+                return instance.validateAddress('lozz', 'sadfwasdfasf').then(response => {
                     
                     expect(response.result).to.equal(false)
                     expect(response.message).to.not.equal(null)
@@ -150,20 +150,20 @@ describe('ChangeNow cryptocurrency API integration', async function() {
 
     });
 
-    describe('Return filtered Monero data', function() {
-        it('should return a JSON object containing Monero-specific data', () => {
+    describe('Return filtered Lozzax data', function() {
+        it('should return a JSON object containing Lozzax-specific data', () => {
             this.timeout(5000)
             console.log("try retrieve");
-            return instance.retrieveFilteredMoneroCurrencyData().then(response => {
+            return instance.retrieveFilteredLozzaxCurrencyData().then(response => {
                 console.log(response);
                 expect(response).to.be.an('object');
-                expect(response, 'ChangeNow may have disabled fixed-rate XMR support temporarily').to.have.property('fixedRateParameters');
-                expect(response, 'ChangeNow may have disabled standard-rate XMR support temporarily').to.have.property('standardRateParameters');
+                expect(response, 'ChangeNow may have disabled fixed-rate LOZZ support temporarily').to.have.property('fixedRateParameters');
+                expect(response, 'ChangeNow may have disabled standard-rate LOZZ support temporarily').to.have.property('standardRateParameters');
                 //done();
             });
             
             
-            // return instance.retrieveFilteredMoneroCurrencyData().then(response => {
+            // return instance.retrieveFilteredLozzaxCurrencyData().then(response => {
             //     console.log(response);
             // })
         })
@@ -207,7 +207,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
 
     describe('get estimated exchange amount', function(done) {
         it('should return a JSON object estimating the exchange amount between a specified fromCurrency and a toCurrency given a from amount', () => {
-            let fromCurrency = 'xmr';
+            let fromCurrency = 'lozz';
             let toCurrency = 'btc';
             let flow = "standard";
             let fromAmount = "0.5";
@@ -235,7 +235,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
     describe('create order', function(done) {
         it('should return a JSON object describing the created order', () => {
             this.timeout(5000)
-            let fromCurrency = "xmr"
+            let fromCurrency = "lozz"
             let toCurrency = "btc"
             let flow = "standard"
             let fromAmount = "0.5"
@@ -268,7 +268,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
     describe('get minimal exchange amount using standard rate', function(done) {
         this.timeout(5000)
         it('should return a JSON object describing the minimum exchange amount between a specified fromCurrency and a toCurrency', () => {
-            return instance.getExchangeRange('xmr', 'btc', 'standard').then(response => {
+            return instance.getExchangeRange('lozz', 'btc', 'standard').then(response => {
 
                 expect(response).to.include.keys(
                     "fromCurrency",
@@ -285,7 +285,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
     describe('get minimal exchange amount using fixed rate', function(done) {
         this.timeout(5000)
         it('should return a JSON object describing the minimum exchange amount between a specified fromCurrency and a toCurrency', () => {
-            return instance.getExchangeRange('xmr', 'btc', 'fixed-rate').then(response => {
+            return instance.getExchangeRange('lozz', 'btc', 'fixed-rate').then(response => {
 
                 expect(response).to.include.keys(
                     "fromCurrency",
@@ -302,7 +302,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
     describe('get current exchange range for currency using standard rate', function(done) {
         this.timeout(5000)
         it('should return a JSON object describing the current exchange rate between a specified fromCurrency and a toCurrency', () => {
-            return instance.getExchangeRange('xmr', 'btc', 'standard').then(response => {
+            return instance.getExchangeRange('lozz', 'btc', 'standard').then(response => {
                 expect(response).to.include.keys(
                     "fromCurrency",
                     "fromNetwork",
@@ -319,7 +319,7 @@ describe('ChangeNow cryptocurrency API integration', async function() {
     describe('get current exchange range for currency using fixed rate', function(done) {
         this.timeout(5000)
         it('should return a JSON object describing the current exchange rate between a specified fromCurrency and a toCurrency', () => {
-            return instance.getExchangeRange('xmr', 'btc', 'fixed-rate').then(response => {
+            return instance.getExchangeRange('lozz', 'btc', 'fixed-rate').then(response => {
                 expect(response).to.include.keys(
                     "fromCurrency",
                     "fromNetwork",

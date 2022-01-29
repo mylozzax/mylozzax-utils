@@ -1,0 +1,1 @@
+This NPM module contains a number of page templates for the [MyLozzax](https://mylozzax.com) desktop, Android and web applications.

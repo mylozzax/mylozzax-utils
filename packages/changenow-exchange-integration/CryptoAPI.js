@@ -12,8 +12,8 @@ class CryptoAPI {
     }
 
     /* 
-    For listing whether XMR is available via the fixed flow method
-    While it may seem counter-intuitive, we have two different methods because though each will return an "XMR" object that will always have supportsFixedRate == true, 
+    For listing whether LOZZ is available via the fixed flow method
+    While it may seem counter-intuitive, we have two different methods because though each will return an "LOZZ" object that will always have supportsFixedRate == true, 
     fixed-rate may be disabled in cases where ChangeNow has server issues
     */
     getFixedFlowCurrencies() {
@@ -56,11 +56,11 @@ class CryptoAPI {
         })
     }
 
-    // returns a single Monero-specific currency object when passed input from retrieveFixedFlowParameters or retrieveStandardFlowParameters
-    filterMoneroCurrencyData(arrayToFilter) {
+    // returns a single Lozzax-specific currency object when passed input from retrieveFixedFlowParameters or retrieveStandardFlowParameters
+    filterLozzaxCurrencyData(arrayToFilter) {
         try {
             let newArr = arrayToFilter.filter(arrayToFilter => {
-                if (arrayToFilter.ticker == 'xmr') {
+                if (arrayToFilter.ticker == 'lozz') {
                     return true
                 }
             })
@@ -72,7 +72,7 @@ class CryptoAPI {
 
     // Requires an API key
     // Works
-    async retrieveFilteredMoneroCurrencyData(arrayToFilter) {
+    async retrieveFilteredLozzaxCurrencyData(arrayToFilter) {
         // Expect json string
         var axios = require('axios');
         console.log(this);
@@ -81,10 +81,10 @@ class CryptoAPI {
             const parameters = await Promise.allSettled([this.getFixedFlowCurrencies(), this.getStandardFlowParameters()])
             let parameterObj = {}
             if (parameters[0].status == "fulfilled") {
-                parameterObj.fixedRateParameters = this.filterMoneroCurrencyData(parameters[0].value);
+                parameterObj.fixedRateParameters = this.filterLozzaxCurrencyData(parameters[0].value);
             }
             if (parameters[1].status == "fulfilled") {
-                parameterObj.standardRateParameters = this.filterMoneroCurrencyData(parameters[1].value);
+                parameterObj.standardRateParameters = this.filterLozzaxCurrencyData(parameters[1].value);
             }
             console.log(parameterObj);
             //let arrayToFilter = await this.getFixedFlowCurrencies();
@@ -97,7 +97,7 @@ class CryptoAPI {
         //     let arrayToFilter = await this.getFixedFlowCurrencies();
 
         //     let newArr = arrayToFilter.filter(responseObj => {
-        //         if (responseObj.ticker == 'xmr') {
+        //         if (responseObj.ticker == 'lozz') {
         //             return true
         //         }
         //     })
@@ -108,7 +108,7 @@ class CryptoAPI {
         //     //     .then(function (response) {
         //     //         console.log("then");
         //     //         let newArr = response.data.filter(responseObj => {
-        //     //             if (responseObj.ticker == 'xmr') {
+        //     //             if (responseObj.ticker == 'lozz') {
         //     //                 return true
         //     //             }
         //     //         })
@@ -125,7 +125,7 @@ class CryptoAPI {
         return `${this.apiUrl}/${this.apiVersion}/`
     }
 
-    // For listing whether XMR is available via the standard flow method
+    // For listing whether LOZZ is available via the standard flow method
     // Works
     getStandardFlowParameters() {
         // Expect json string
@@ -145,7 +145,7 @@ class CryptoAPI {
                     //console.log(typeof(response.data));
                     //console.log(response.data);
                     let newArr = response.data.filter(responseObj => {
-                        if (responseObj.ticker == 'xmr') {
+                        if (responseObj.ticker == 'lozz') {
                             return true
                         }
                     })
@@ -225,7 +225,7 @@ class CryptoAPI {
     }
 
     // This API endpoint returns estimated exchange amount for the exchange and some additional fields. Accepts to and from currencies, currencies' networks, exchange flow, and RateID.
-    // While this works for xmr -> btc, I've seen that in certain cases, the request would fail for something like usdt if a network isn't specified for usdt
+    // While this works for lozz -> btc, I've seen that in certain cases, the request would fail for something like usdt if a network isn't specified for usdt
     getEstimatedAmount(fromCurrency, toCurrency, flow, fromAmount, toAmount) {
         return new Promise((resolve, reject) => {
             var axios = require('axios');
@@ -391,15 +391,15 @@ class CryptoAPI {
     }
 
     // {
-    //     "ticker": "xmr",
-    //     "name": "Monero",
-    //     "image": "https://changenow.io/images/sprite/currencies/xmr.svg",
+    //     "ticker": "lozz",
+    //     "name": "Lozzax",
+    //     "image": "https://changenow.io/images/sprite/currencies/lozz.svg",
     //     "hasExternalId": false,
     //     "isFiat": false,
     //     "featured": true,
     //     "isStable": false,
     //     "supportsFixedRate": true,
-    //     "network": "xmr",
+    //     "network": "lozz",
     //     "tokenContract": null,
     //     "buy": true,
     //     "sell": true
@@ -426,7 +426,7 @@ class CryptoAPI {
     //                             "referrer_id": "MYM12314",
     //                             "enabled": false
     //                         }, 
-    //                         "localmonero": {
+    //                         "locallozzax": {
     //                             "referrer_id": "h2t1",
     //                             "enabled": true
     //                         }
@@ -435,7 +435,7 @@ class CryptoAPI {
     //                         "changenow": {
     //                             "exchange_workflow": "prepopulates_limits"
     //                         },
-    //                         "xmrto": {
+    //                         "lozzto": {
     //                             "exchange_workflow": "prepopulate_limits",
     //                         },
     //                         "coinswitch": {
@@ -547,7 +547,7 @@ class CryptoAPI {
     //     let data = {
     //         out_address,
     //         refund_address,
-    //         in_currency: "XMR",
+    //         in_currency: "LOZZ",
     //         out_currency: "BTC",
     //         ...self.offer
     //     }
@@ -580,17 +580,17 @@ class CryptoAPI {
     //     let self = this;
     //     return new Promise((resolve, reject) => {
     //         let data = {
-    //             "in_currency": "XMR",
+    //             "in_currency": "LOZZ",
     //             "out_currency": "BTC"
     //         }
     //         let endpoint = `${self.apiUrl}/get_info`;
     //         axios.post(endpoint, data)
     //             .then((response) => {
     //                 self.currentRates = response.data;
-    //                 self.in_currency = "XMR";
+    //                 self.in_currency = "LOZZ";
     //                 self.out_currency = "BTC";
-    //                 self.currentRates.minimum_xmr = self.currentRates.in_min;
-    //                 self.currentRates.maximum_xmr = self.currentRates.in_max;
+    //                 self.currentRates.minimum_lozz = self.currentRates.in_min;
+    //                 self.currentRates.maximum_lozz = self.currentRates.in_max;
     //                 resolve(response);
     //             }).catch((error) => {
     //                 reject(error);

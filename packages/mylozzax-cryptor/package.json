@@ -1,0 +1,18 @@
+{
+  "name": "@mylozzax/mylozzax-cryptor",
+  "version": "1.3.1-alpha.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MyLozzax <info@mylozzax,com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mylozzax/mylozzax-utils.git"
+  },
+  "license": "BSD-3-Clause",
+  "publishConfig": {
+    "access": "public"
+  }
+}

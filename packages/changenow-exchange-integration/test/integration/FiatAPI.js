@@ -5,7 +5,7 @@ var instance = new FiatAPI();
 
 describe('ChangeNow fiat API integration', async function() {
 
-    describe('Create a transaction to purchase Monero using fiat', () => {
+    describe('Create a transaction to purchase Lozzax using fiat', () => {
         it('fiat-api: should return a JSON object containing a successful response', () => {
             let from_amount = "300";
             let from_currency = "EUR";
@@ -30,9 +30,9 @@ describe('ChangeNow fiat API integration', async function() {
         })
     })
 
-    describe('Get a minimum-maximum range for USD -> XMR', () => {
+    describe('Get a minimum-maximum range for USD -> LOZZ', () => {
         it('fiat-api: should return a JSON object containing an object with min, max, to and from parameters', () => {
-            return instance.getMinMaxRange("USD", "XMR").then(response => {
+            return instance.getMinMaxRange("USD", "LOZZ").then(response => {
                 //expect(response.message).to.equal("OK")
                 expect(response).to.include.keys(
                     "from","to","min","max"
@@ -46,7 +46,7 @@ describe('ChangeNow fiat API integration', async function() {
         it('fiat-api: should return a JSON object ', () => {
             let from_amount = "100";
             let from_currency = "USD";
-            let to_currency = "XMR";
+            let to_currency = "LOZZ";
             return instance.getTransactionEstimate(from_amount, from_currency, to_currency).then(response => {
                 //expect(response.message).to.equal("OK")
                 expect(response.to.include.keys(
@@ -104,7 +104,7 @@ describe('ChangeNow fiat API integration', async function() {
     // GET
     // Estimate
     // https://api.changenow.io/v2/fiat-estimate?from_currency=&from_network=&from_amount=&to_currency=&to_network=&deposit_type=&payout_type=    
-    // response = await instance.getTransactionEstimate(200, "USD", "XMR");
+    // response = await instance.getTransactionEstimate(200, "USD", "LOZZ");
 
     // GET
     // Transaction status
@@ -117,7 +117,7 @@ describe('ChangeNow fiat API integration', async function() {
     // MarketInfo
     // https://api.changenow.io/v2/fiat-market-info/min-max-range/{fromto}
 
-    //response = await instance.getMinMaxRange("USD", "XMR");
+    //response = await instance.getMinMaxRange("USD", "LOZZ");
     //response = await instance.getMinMaxRange("USD", "BTC");
 
     // GET
@@ -130,7 +130,7 @@ describe('ChangeNow fiat API integration', async function() {
     // Create fiat transaction
     // https://api.changenow.io/v2/fiat-transaction
 
-    //response = await instance.createExchangeTransaction(500, "EUR", "XMR", "488ti8HzaWE9gyCS94YGqeJ735acPErGCWxBid5osQhJRe9pipvzrBRV4oBEVxJuLvfVZyW2J9qt1T2dB14XLejB14Kaq3o");
+    //response = await instance.createExchangeTransaction(500, "EUR", "LOZZ", "488ti8HzaWE9gyCS94YGqeJ735acPErGCWxBid5osQhJRe9pipvzrBRV4oBEVxJuLvfVZyW2J9qt1T2dB14XLejB14Kaq3o");
 
 
 

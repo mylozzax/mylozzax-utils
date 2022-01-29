@@ -1,0 +1,36 @@
+{
+  "name": "@mylozzax/mylozzax-exchange",
+  "version": "1.3.1-alpha.0",
+  "description": "This module is used by the desktop and web versions of the MyLozzax wallet to facilitate the exchange of LOZZ into other cryptocurrencies. It can be used to facilitate transactions where a user converts one cryptocurrency into another.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cryptocurrency-conversion",
+    "cryptocurrency-exchange",
+    "mylozzax",
+    "lozztobtc",
+    "lozzaxtobitcoin",
+    "lozzax-to-bitcoin"
+  ],
+  "author": "MyLozzax",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mylozzax/mylozzax-utils.git"
+  },
+  "homepage": "https://mylozzax.xyz",
+  "bugs": {
+    "url": "https://github.com/mylozzax/mylozzax-utils/issues",
+    "email": "info@mylozzax.com"
+  },
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "process": "^0.11.10"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "gitHead": "9a48af4405c496f12db1b01dcc0eeccefcc3d5fc"
+}

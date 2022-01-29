@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Suggest an idea for MyMonero Utils
+about: Suggest an idea for MyLozzax Utils
 ---
 
 ### Describe your feature request

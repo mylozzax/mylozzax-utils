@@ -1,6 +1,6 @@
 ---
 name: Question
-about: Ask a question about MyMonero Utils
+about: Ask a question about MyLozzax Utils
 ---
 
 ### Question description

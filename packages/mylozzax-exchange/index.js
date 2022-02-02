@@ -3,7 +3,8 @@ const axios = require("axios");
 class ExchangeFunctions {
 
     constructor() {
-        this.apiUrl = "https://api.lozzax.xyz:443/cx";
+    //    this.apiUrl = "https://api.lozzax.xyz:443/cx";
+         this.apiUrl = "https://api.lozzax.xyz/cx";
         // this.apiVersion = "v3";
         // this.currencyToExchange = "lozz2btc";
         this.offer = {};
